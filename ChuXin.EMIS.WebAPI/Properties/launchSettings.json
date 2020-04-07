@@ -20,7 +20,7 @@
     "ChuXin.EMIS.WebAPI": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "api/students",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

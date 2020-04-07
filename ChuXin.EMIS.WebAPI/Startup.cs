@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ChuXin.EMIS.WebAPI.DataBaseContext;
+using ChuXin.EMIS.WebAPI.IServices;
+using ChuXin.EMIS.WebAPI.Services;
 using ChuXin.EMIS.WebAPI.SettingModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,8 +35,11 @@ namespace ChuXin.EMIS.WebAPI
 
             // 注入数据库连接
             string conn = Configuration["MySqlConnectionString"];
-            services.AddDbContext<EFDbContextEF>(options => options.UseMySql(conn));
+            services.AddDbContext<EFDbContext>(options => options.UseMySql(conn));
             services.AddDbContext<AdoDbContext>(options => options.UseMySql(conn));
+
+            // 服务注册
+            services.AddScoped<IStudentRepository, StudentRepository>();
 
             services.AddControllers();
         }
