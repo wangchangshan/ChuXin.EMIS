@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChuXin.EMIS.WebAPI.Entities
 {
-	[Table("student")]
-	public class Student
+	[Table("student_temp")]
+	public class StudentTemp
 	{
 		[Key]
 		[Column("id")]
@@ -35,22 +35,28 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("student_propagate_txt")]
 		public string StudentPropagateTxt { get; set; }
 
-		[Column("student_register_date")]
-		public DateTime StudentRegisterDate { get; set; }
-
 		[Column("student_address")]
 		public string StudentAddress { get; set; }
 
 		[Column("student_avatar_path")]
 		public string StudentAvatarPath { get; set; }
 
-		[Column("trial_other_course")]
-		public string TrialOtherCourse { get; set; }
+		[Column("trial_folder_code")]
+		public string TrialFolderCode { get; set; }
 
-		[Column("student_status")]
-		public string StudentStatus { get; set; }
+		[Column("trial_folder_name")]
+		public string TrialFolderName { get; set; }
 
-		[Column("student_remark")]
-		public string StudentRemark { get; set; }
+		[Column("result")]
+		public string Result { get; set; }
+
+		[Column("reason")]
+		public string Reason { get; set; }
+
+		[Column("student_temp_status")]
+		public string StudentTempStatus { get; set; }
+
+		[Column("create_time")]
+		public DateTime? CreateTime { get; set; }
 	}
 }

@@ -10,7 +10,6 @@
     </PropertyGroup>
     <ItemGroup>
         <Folder Include="Controllers\" />
-        <Folder Include="Entities\" />
         <Folder Include="DataBaseContext\" />
         <Folder Include="SettingModel\" />
         <Folder Include="IServices\" />
