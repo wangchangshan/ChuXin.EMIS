@@ -12,6 +12,7 @@
     "Custom": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "api/students",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
