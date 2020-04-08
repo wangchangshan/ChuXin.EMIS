@@ -11,7 +11,7 @@ namespace ChuXin.EMIS.WebAPI.DataBaseContext
 {
     public class AdoDbContext : DbContext
     {
-        private readonly ILogger<AdoDbContext> _logger;
+        private static ILogger<AdoDbContext> _logger;
         private readonly IOptions<AppSetting> _appOptions;
         public AdoDbContext() : base()
         {
@@ -25,6 +25,7 @@ namespace ChuXin.EMIS.WebAPI.DataBaseContext
 
         public static DataTable GetDataTable(string sql, params object[] args)
         {
+            DataTable dt = null;
             try
             {
                 using (AdoDbContext adoContext = new AdoDbContext())
@@ -38,17 +39,18 @@ namespace ChuXin.EMIS.WebAPI.DataBaseContext
                         using (var adapter = factory.CreateDataAdapter())
                         {
                             adapter.SelectCommand = cmd;
-                            var dt = new DataTable();
+                            dt = new DataTable();
                             adapter.Fill(dt);
-                            return dt;
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                //_logger.LogError(ex, $"Error occurred during SQL query execution {sql}");
+                _logger.LogError(ex, $"Error occurred during SQL query execution {sql}");
             }
+
+            return dt;
         }
 
         private static DbCommand CreateCommand(DbProviderFactory factory, params object[] args)
