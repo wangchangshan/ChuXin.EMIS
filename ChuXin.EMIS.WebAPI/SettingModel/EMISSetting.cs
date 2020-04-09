@@ -1,5 +1,4 @@
-﻿using System;
-namespace ChuXin.EMIS.WebAPI.SettingModel
+﻿namespace ChuXin.EMIS.WebAPI.SettingModel
 {
     public class EMISSetting
     {

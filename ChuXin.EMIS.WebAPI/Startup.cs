@@ -1,20 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ChuXin.EMIS.WebAPI.DataBaseContext;
 using ChuXin.EMIS.WebAPI.IServices;
 using ChuXin.EMIS.WebAPI.Services;
 using ChuXin.EMIS.WebAPI.SettingModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace ChuXin.EMIS.WebAPI
 {
@@ -34,11 +27,12 @@ namespace ChuXin.EMIS.WebAPI
             services.Configure<AppSetting>(Configuration);
 
             // 注入数据库连接
-            string conn = Configuration["MySqlConnectionString"];
+            string conn = Configuration["ConnectionString:DefaultConnectionString"];
             services.AddDbContext<EFDbContext>(options => options.UseMySql(conn));
-            services.AddDbContext<AdoDbContext>(options => options.UseMySql(conn));
+            //services.AddDbContext<AdoDbContext>(options => options.UseMySql(conn));
 
             // 服务注册
+            services.AddTransient<IAdoRepository, AdoRepository>();
             services.AddScoped<IStudentRepository, StudentRepository>();
 
             services.AddControllers();
