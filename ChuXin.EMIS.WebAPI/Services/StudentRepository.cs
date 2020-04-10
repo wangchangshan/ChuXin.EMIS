@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using ChuXin.EMIS.WebAPI.DataBaseContext;
+using ChuXin.EMIS.WebAPI.DtoParameters;
 using ChuXin.EMIS.WebAPI.Entities;
+using ChuXin.EMIS.WebAPI.Helpers;
 using ChuXin.EMIS.WebAPI.IServices;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace ChuXin.EMIS.WebAPI.Services
 {
@@ -13,15 +17,38 @@ namespace ChuXin.EMIS.WebAPI.Services
 	{
 		private readonly EFDbContext _efContext;
 		private readonly IAdoRepository _adoRepository;
-		public StudentRepository(EFDbContext efContext, IAdoRepository adoRepository)
+		private ILogger<StudentRepository> _logger;
+		public StudentRepository(EFDbContext efContext, IAdoRepository adoRepository, ILogger<StudentRepository> logger)
 		{
 			_efContext = efContext ?? throw new ArgumentNullException(nameof(efContext));
 			_adoRepository = adoRepository ?? throw new ArgumentNullException(nameof(efContext));
+			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		}
 
-		public async Task<List<Student>> GetStudentsAsync()
+		public async Task<PagedList<Student>> GetStudentListAsync(StudentListDtoParameters parameters)
 		{
-			return await _efContext.Students.ToListAsync();
+			if (parameters == null)
+			{
+				_logger.LogInformation("no parameters in GetStudentListAsync");
+				throw new ArgumentNullException(nameof(parameters));
+			}
+
+			var queryExpression = _efContext.Student as IQueryable<Student>;
+			if (!string.IsNullOrWhiteSpace(parameters.StudentName))
+			{
+				parameters.StudentName = parameters.StudentName.Trim();
+				queryExpression = queryExpression.Where(x => EF.Functions.Like(x.StudentName, $"%{parameters.StudentName}%"));
+			}
+
+			if (!string.IsNullOrWhiteSpace(parameters.StudentStatus))
+			{
+				parameters.StudentStatus = parameters.StudentStatus.Trim();
+				queryExpression = queryExpression.Where(x => x.StudentStatus == parameters.StudentStatus);
+			}
+
+			queryExpression.OrderBy(x => x.Id);
+
+			return await PagedList<Student>.CreateAsync(queryExpression, parameters.PageNumber, parameters.PageSize);
 		}
 
 		public DataTable GetStudents()

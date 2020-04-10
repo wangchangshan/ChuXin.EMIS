@@ -1,14 +1,18 @@
 using AutoMapper;
+using ChuXin.EMIS.WebAPI.AutoMapperProfiles;
 using ChuXin.EMIS.WebAPI.DataBaseContext;
+using ChuXin.EMIS.WebAPI.Helpers;
 using ChuXin.EMIS.WebAPI.IServices;
 using ChuXin.EMIS.WebAPI.Services;
 using ChuXin.EMIS.WebAPI.SettingModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
 using System;
 
 namespace ChuXin.EMIS.WebAPI
@@ -27,6 +31,14 @@ namespace ChuXin.EMIS.WebAPI
         {
             // 注册配置选项的服务,  构造器或中间件就可以通过注入的方式获取配置。
             services.Configure<AppSetting>(Configuration);
+            AppSettingHelper.InitSetting(Configuration.GetSection("EMISSetting"));
+
+            // API 版本控制
+            services.AddApiVersioning(options => {
+                options.ReportApiVersions = true;
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+            });
 
             // 注入数据库连接
             string conn = Configuration["ConnectionString:DefaultConnectionString"];
@@ -39,7 +51,12 @@ namespace ChuXin.EMIS.WebAPI
             services.AddTransient<IAdoRepository, AdoRepository>();
             services.AddScoped<IStudentRepository, StudentRepository>();
 
-            services.AddControllers();
+            services.AddControllers()
+            .AddNewtonsoftJson(setup => { 
+                // 配置Json格式
+                setup.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                setup.SerializerSettings.DateFormatString = "yyyy-MM-dd";
+            });
         }
 
 

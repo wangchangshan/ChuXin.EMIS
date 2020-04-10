@@ -10,13 +10,13 @@
         <LaunchUrl>api/students</LaunchUrl>
     </PropertyGroup>
     <ItemGroup>
-        <Folder Include="Controllers\" />
         <Folder Include="IServices\" />
         <Folder Include="Services\" />
-        <Folder Include="Helpers\" />
         <Content Update="nlog.config" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.3" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.1.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
