@@ -21,7 +21,6 @@ namespace ChuXin.EMIS.WebAPI.DataBaseContext
 			DataTable dt = null;
 			try
 			{
-				_logger.LogInformation("Get Data Table--------------------");
 				DbProviderFactory factory = DbProviderFactories.GetFactory(_efContext.Database.GetDbConnection());
 				using (var cmd = CreateCommand(factory, args))
 				{
@@ -35,7 +34,6 @@ namespace ChuXin.EMIS.WebAPI.DataBaseContext
 						adapter.Fill(dt);
 					}
 				}
-				_logger.LogInformation($"SQL is: {sql}");
 			}
 			catch (Exception ex)
 			{

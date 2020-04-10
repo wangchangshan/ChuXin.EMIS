@@ -1,3 +1,4 @@
+using AutoMapper;
 using ChuXin.EMIS.WebAPI.DataBaseContext;
 using ChuXin.EMIS.WebAPI.IServices;
 using ChuXin.EMIS.WebAPI.Services;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace ChuXin.EMIS.WebAPI
 {
@@ -29,9 +31,11 @@ namespace ChuXin.EMIS.WebAPI
             // 注入数据库连接
             string conn = Configuration["ConnectionString:DefaultConnectionString"];
             services.AddDbContext<EFDbContext>(options => options.UseMySql(conn));
-            //services.AddDbContext<AdoDbContext>(options => options.UseMySql(conn));
 
-            // 服务注册
+            // 注册AutoMapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            // 业务服务注册
             services.AddTransient<IAdoRepository, AdoRepository>();
             services.AddScoped<IStudentRepository, StudentRepository>();
 

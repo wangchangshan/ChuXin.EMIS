@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using ChuXin.EMIS.WebAPI.IServices;
+using ChuXin.EMIS.WebAPI.Models;
 using ChuXin.EMIS.WebAPI.SettingModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,25 +15,20 @@ namespace ChuXin.EMIS.WebAPI.Controllers
 	[Route("api/students")]
 	public class StudentsController : ControllerBase
 	{
-		private readonly IOptions<AppSetting> _appOptions;
+		private readonly IMapper _mapper;
 		private readonly IStudentRepository _studentRepository;
-		private readonly ILogger<StudentsController> _logger;
-		public StudentsController(IOptions<AppSetting> appOptions, IStudentRepository studentRepository, ILogger<StudentsController> logger)
+		public StudentsController(IStudentRepository studentRepository, IMapper mapper)
 		{
-			_appOptions = appOptions;
+			_mapper = mapper;
 			_studentRepository = studentRepository;
-			_logger = logger;
-
-			_logger.LogDebug(1, "NLog injected into HomeController");
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> GetStudents()
 		{
 			var studentList = await _studentRepository.GetStudentsAsync();
-			var dt = _studentRepository.GetStudents();
-			_logger.LogInformation("test");
-			return Ok(studentList);
+			var studentListDto = _mapper.Map<IEnumerable<StudentListDto>>(studentList);
+			return Ok(studentListDto);
 		}
 	}
 }
