@@ -1,5 +1,4 @@
 using AutoMapper;
-using ChuXin.EMIS.WebAPI.AutoMapperProfiles;
 using ChuXin.EMIS.WebAPI.DataBaseContext;
 using ChuXin.EMIS.WebAPI.Helpers;
 using ChuXin.EMIS.WebAPI.IServices;
@@ -12,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using System;
 
@@ -34,11 +34,19 @@ namespace ChuXin.EMIS.WebAPI
             AppSettingHelper.InitSetting(Configuration.GetSection("EMISSetting"));
 
             // API 版本控制
-            services.AddApiVersioning(options => {
+            services.AddApiVersioning(options =>
+            {
                 options.ReportApiVersions = true;
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.DefaultApiVersion = new ApiVersion(1, 0);
             });
+
+            // 配置接口文档生成
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = " 初心教育接口文档", Version = "V1" });
+            });
+            services.AddSwaggerGenNewtonsoftSupport(); // explicit opt-in - needs to be placed after AddSwaggerGen()
 
             // 注入数据库连接
             string conn = Configuration["ConnectionString:DefaultConnectionString"];
@@ -52,7 +60,8 @@ namespace ChuXin.EMIS.WebAPI
             services.AddScoped<IStudentRepository, StudentRepository>();
 
             services.AddControllers()
-            .AddNewtonsoftJson(setup => { 
+            .AddNewtonsoftJson(setup =>
+            {
                 // 配置Json格式
                 setup.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 setup.SerializerSettings.DateFormatString = "yyyy-MM-dd";
@@ -65,6 +74,12 @@ namespace ChuXin.EMIS.WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                });
             }
 
             //app.UseHttpsRedirection();
