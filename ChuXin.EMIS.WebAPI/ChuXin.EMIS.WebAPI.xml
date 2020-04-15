@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ChuXin.EMIS.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="T:ChuXin.EMIS.WebAPI.Controllers.V1.StudentsController">
+            <summary>
+            正式学员
+            </summary>
+        </member>
+        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentsController.GetStudents(ChuXin.EMIS.WebAPI.DtoParameters.StudentListDtoParameters)">
+            <summary>
+            获取正式学员列表
+            </summary>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Helpers.AppSettingHelper">
+            <summary>
+            用于获取 EMISSetting 配置节点的值
+            </summary>
+        </member>
+    </members>
+</doc>

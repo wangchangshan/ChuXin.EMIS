@@ -7,6 +7,7 @@ using ChuXin.EMIS.WebAPI.SettingModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,83 +18,104 @@ using System;
 
 namespace ChuXin.EMIS.WebAPI
 {
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+	public class Startup
+	{
+		public Startup(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}
 
-        public IConfiguration Configuration { get; }
+		public IConfiguration Configuration { get; }
 
-
-        public void ConfigureServices(IServiceCollection services)
-        {
-            // 注册配置选项的服务,  构造器或中间件就可以通过注入的方式获取配置。
-            services.Configure<AppSetting>(Configuration);
-            AppSettingHelper.InitSetting(Configuration.GetSection("EMISSetting"));
-
-            // API 版本控制
-            services.AddApiVersioning(options =>
-            {
-                options.ReportApiVersions = true;
-                options.AssumeDefaultVersionWhenUnspecified = true;
-                options.DefaultApiVersion = new ApiVersion(1, 0);
-            });
-
-            // 配置接口文档生成
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = " 初心教育接口文档", Version = "V1" });
-            });
-            services.AddSwaggerGenNewtonsoftSupport(); // explicit opt-in - needs to be placed after AddSwaggerGen()
-
-            // 注入数据库连接
-            string conn = Configuration["ConnectionString:DefaultConnectionString"];
-            services.AddDbContext<EFDbContext>(options => options.UseMySql(conn));
-
-            // 注册AutoMapper
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-            // 业务服务注册
-            services.AddTransient<IAdoRepository, AdoRepository>();
-            services.AddScoped<IStudentRepository, StudentRepository>();
-
-            services.AddControllers()
-            .AddNewtonsoftJson(setup =>
-            {
-                // 配置Json格式
-                setup.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                setup.SerializerSettings.DateFormatString = "yyyy-MM-dd";
-            });
-        }
+		private IApiVersionDescriptionProvider _apiVersionProvider;
 
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
+		public void ConfigureServices(IServiceCollection services)
+		{
+			// 注册配置选项的服务,  构造器或中间件就可以通过注入的方式获取配置。
+			services.Configure<AppSetting>(Configuration);
+			AppSettingHelper.InitSetting(Configuration.GetSection("EMISSetting"));
 
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-                });
-            }
+			// API 版本控制
+			services.AddApiVersioning(options =>
+			{
+				options.ReportApiVersions = false;
+				options.AssumeDefaultVersionWhenUnspecified = true;
+				options.DefaultApiVersion = new ApiVersion(1, 0);
+			}).AddVersionedApiExplorer(option => { 
+				option.GroupNameFormat = "'v'VVV";
+				option.AssumeDefaultVersionWhenUnspecified = true;
+			});
 
-            //app.UseHttpsRedirection();
+			// 配置接口文档生成
+			_apiVersionProvider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
+			services.AddSwaggerGen(c =>
+			{
+				foreach (var description in _apiVersionProvider.ApiVersionDescriptions)
+				{
+					c.SwaggerDoc(description.GroupName, new OpenApiInfo
+					{
+						Title = $"初心教育接口文档 v{description.ApiVersion}",
+						Version = description.ApiVersion.ToString(),
+						Description = "切换版本请点右上角版本切换"
+					});
+				}
+				//var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+				//var xmlPath = Path.Combine(basePath, "ChuXin.EMIS.WebAPI.xml");
+				c.IncludeXmlComments(this.GetType().Assembly.Location.Replace(".dll", ".xml"), true);
+			});
+			// 兼容NewtonsoftJsonAddSwaggerGen
+			services.AddSwaggerGenNewtonsoftSupport();
 
-            app.UseCors();
+			// 注入数据库连接
+			string conn = Configuration["ConnectionString:DefaultConnectionString"];
+			services.AddDbContext<EFDbContext>(options => options.UseMySql(conn));
 
-            app.UseRouting();
+			// 注册AutoMapper
+			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            //app.UseAuthorization();
+			// 业务服务注册
+			services.AddTransient<IAdoRepository, AdoRepository>();
+			services.AddScoped<IStudentRepository, StudentRepository>();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
-    }
+			services.AddControllers()
+			.AddNewtonsoftJson(setup =>
+			{
+				// 配置Json格式
+				setup.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+				setup.SerializerSettings.DateFormatString = "yyyy-MM-dd";
+			});
+		}
+
+
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		{
+			if (env.IsDevelopment())
+			{
+				app.UseDeveloperExceptionPage();
+
+				app.UseSwagger();
+				app.UseSwaggerUI(c =>
+				{
+					foreach (var descript in _apiVersionProvider.ApiVersionDescriptions)
+					{
+						c.SwaggerEndpoint($"/swagger/{descript.GroupName}/swagger.json", descript.GroupName.ToUpperInvariant());
+					}
+				});
+			}
+
+			//app.UseHttpsRedirection();
+
+			app.UseCors();
+
+			app.UseRouting();
+
+			//app.UseAuthorization();
+
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllers();
+			});
+		}
+	}
 }

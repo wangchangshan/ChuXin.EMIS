@@ -10,6 +10,9 @@ using Microsoft.Extensions.Options;
 
 namespace ChuXin.EMIS.WebAPI.Controllers.V1
 {
+	/// <summary>
+	/// 正式学员
+	/// </summary>
 	[ApiVersion("1.0")]
 	[ApiController]
 	[Route("api/v{version:ApiVersion}/students")]
@@ -24,6 +27,11 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
 			_studentRepository = studentRepository;
 		}
 
+		/// <summary>
+		/// 获取正式学员列表
+		/// </summary>
+		/// <param name="parameters"></param>
+		/// <returns></returns>
 		[HttpGet]
 		public async Task<IActionResult> GetStudents([FromQuery] StudentListDtoParameters parameters)
 		{

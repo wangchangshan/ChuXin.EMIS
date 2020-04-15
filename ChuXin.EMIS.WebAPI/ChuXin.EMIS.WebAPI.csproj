@@ -9,6 +9,10 @@
         <ApplicationURL>http://localhost:5002</ApplicationURL>
         <LaunchUrl>api/v1/students</LaunchUrl>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <DocumentationFile>D:\cswang\myproject\ChuXin.EMIS\ChuXin.EMIS.WebAPI\ChuXin.EMIS.WebAPI.xml</DocumentationFile>
+      <NoWarn>1701;1702;1591;</NoWarn>
+    </PropertyGroup>
     <ItemGroup>
         <Folder Include="IServices\" />
         <Folder Include="Services\" />
@@ -17,11 +21,13 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.3" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.1.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="4.1.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
         <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.1" />
         <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.3.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.3.1" />
     </ItemGroup>
 </Project>
