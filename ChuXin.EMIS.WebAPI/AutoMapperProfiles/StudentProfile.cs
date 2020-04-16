@@ -11,6 +11,10 @@ namespace ChuXin.EMIS.WebAPI.AutoMapperProfiles
 		{
 			CreateMap<Student, StudentListDto>()
 			.ForMember(dest => dest.StudentAvatarPath, opt => opt.MapFrom(s => $"{AppSettingHelper.GetSetting("AccessUrl")}api/upload/getimage?id={s.Id}&type=avatar-s"));
+
+			CreateMap<StudentAddDto, Student>();
+
+			CreateMap<StudentUpdateDto, Student>();
 		}
 	}
 }

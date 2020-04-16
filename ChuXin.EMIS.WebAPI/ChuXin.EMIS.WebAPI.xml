@@ -9,11 +9,17 @@
             正式学员
             </summary>
         </member>
-        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentsController.GetStudents(ChuXin.EMIS.WebAPI.DtoParameters.StudentListDtoParameters)">
+        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentsController.GetStudentsAsync(ChuXin.EMIS.WebAPI.DtoParameters.StudentListDtoParameters)">
             <summary>
-            获取正式学员列表
+            获取正式学员列表 也可用于导出学员列表
             </summary>
             <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentsController.CreateStudentAsync(ChuXin.EMIS.WebAPI.Models.StudentAddDto)">
+            <summary>
+            添加正式学员
+            </summary>
             <returns></returns>
         </member>
         <member name="T:ChuXin.EMIS.WebAPI.Helpers.AppSettingHelper">

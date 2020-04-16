@@ -25,6 +25,20 @@ namespace ChuXin.EMIS.WebAPI.Services
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
 		}
 
+		public void AddStudent(Student student)
+		{
+			if (student == null)
+			{
+				throw new ArgumentNullException(nameof(student));
+			}
+
+			_efContext.Student.Add(student);
+		}
+
+		public void DeleteStudent(Student student)
+		{
+		}
+
 		public async Task<PagedList<Student>> GetStudentListAsync(StudentListDtoParameters parameters)
 		{
 			if (parameters == null)
@@ -51,9 +65,18 @@ namespace ChuXin.EMIS.WebAPI.Services
 			return await PagedList<Student>.CreateAsync(queryExpression, parameters.PageNumber, parameters.PageSize);
 		}
 
-		public DataTable GetStudents()
+		//public DataTable GetStudents()
+		//{
+		//	return _adoRepository.GetDataTable("select * from student");
+		//}
+
+		public void UpdateStudent(Student student)
 		{
-			return _adoRepository.GetDataTable("select * from student");
+		}
+
+		public async Task<bool> SaveAsync()
+		{
+			return await _efContext.SaveChangesAsync() >= 0;
 		}
 	}
 }

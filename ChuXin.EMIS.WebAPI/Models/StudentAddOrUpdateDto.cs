@@ -2,23 +2,23 @@
 
 namespace ChuXin.EMIS.WebAPI.Models
 {
-	public class StudentListDto
+	public abstract class StudentAddOrUpdateDto
 	{
-		public int Id { get; set; }
-
-		public string StudentCode { get; set; }
-
 		public string StudentName { get; set; }
 
 		public string StudentSex { get; set; }
 
-		public DateTime StudentBirthday { get; set; }
+		public DateTime StudentBirthday { get; set; } = DateTime.MinValue;
+
+		public string StudentIdentityCardNum { get; set; }
 
 		public string StudentPhone { get; set; }
 
 		public string StudentAddress { get; set; }
 
-		public string StudentAvatarPath { get; set; }
+		public string StudentRemark { get; set; }
+
+		public DateTime StudentRegisterDate { get; set; } = DateTime.Now;
 
 		public string StudentStatus { get; set; }
 	}

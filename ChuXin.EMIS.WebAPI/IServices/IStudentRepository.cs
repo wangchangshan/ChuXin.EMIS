@@ -8,8 +8,16 @@ namespace ChuXin.EMIS.WebAPI.IServices
 {
     public interface IStudentRepository
     {
+        // DataTable GetStudents();  Test Ado.Net
+
         Task<PagedList<Student>> GetStudentListAsync(StudentListDtoParameters parameters);
 
-        DataTable GetStudents();
+        void AddStudent(Student student);
+
+        void UpdateStudent(Student student);
+
+        void DeleteStudent(Student student);
+
+        Task<bool> SaveAsync();
     }
 }

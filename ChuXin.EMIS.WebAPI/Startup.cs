@@ -70,6 +70,7 @@ namespace ChuXin.EMIS.WebAPI
 			// 注入数据库连接
 			string conn = Configuration["ConnectionString:DefaultConnectionString"];
 			services.AddDbContext<EFDbContext>(options => options.UseMySql(conn));
+			TableCodeHelper.ServiceProvider = services.BuildServiceProvider();
 
 			// 注册AutoMapper
 			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
