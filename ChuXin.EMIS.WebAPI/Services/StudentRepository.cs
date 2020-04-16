@@ -13,70 +13,80 @@ using Microsoft.Extensions.Logging;
 
 namespace ChuXin.EMIS.WebAPI.Services
 {
-	public class StudentRepository : IStudentRepository
-	{
-		private readonly EFDbContext _efContext;
-		private readonly IAdoRepository _adoRepository;
-		private ILogger<StudentRepository> _logger;
-		public StudentRepository(EFDbContext efContext, IAdoRepository adoRepository, ILogger<StudentRepository> logger)
-		{
-			_efContext = efContext ?? throw new ArgumentNullException(nameof(efContext));
-			_adoRepository = adoRepository ?? throw new ArgumentNullException(nameof(efContext));
-			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
-		}
+    public class StudentRepository : IStudentRepository
+    {
+        private readonly EFDbContext _efContext;
+        private readonly IAdoRepository _adoRepository;
+        private ILogger<StudentRepository> _logger;
+        public StudentRepository(EFDbContext efContext, IAdoRepository adoRepository, ILogger<StudentRepository> logger)
+        {
+            _efContext = efContext ?? throw new ArgumentNullException(nameof(efContext));
+            _adoRepository = adoRepository ?? throw new ArgumentNullException(nameof(efContext));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
 
-		public void AddStudent(Student student)
-		{
-			if (student == null)
-			{
-				throw new ArgumentNullException(nameof(student));
-			}
+        public void AddStudent(Student student)
+        {
+            if (student == null)
+            {
+                throw new ArgumentNullException(nameof(student));
+            }
 
-			_efContext.Student.Add(student);
-		}
+            _efContext.Student.Add(student);
+        }
 
-		public void DeleteStudent(Student student)
-		{
-		}
+        public void DeleteStudent(Student student)
+        {
+        }
 
-		public async Task<PagedList<Student>> GetStudentListAsync(StudentListDtoParameters parameters)
-		{
-			if (parameters == null)
-			{
-				_logger.LogInformation("no parameters in GetStudentListAsync");
-				throw new ArgumentNullException(nameof(parameters));
-			}
+        public async Task<Student> GetStudentAsnyc(int studentId)
+        {
+            return await _efContext.Student.FirstOrDefaultAsync(x => x.Id == studentId);
+        }
 
-			var queryExpression = _efContext.Student as IQueryable<Student>;
-			if (!string.IsNullOrWhiteSpace(parameters.StudentName))
-			{
-				parameters.StudentName = parameters.StudentName.Trim();
-				queryExpression = queryExpression.Where(x => EF.Functions.Like(x.StudentName, $"%{parameters.StudentName}%"));
-			}
+        public async Task<PagedList<Student>> GetStudentListAsync(StudentListDtoParameters parameters)
+        {
+            if (parameters == null)
+            {
+                _logger.LogInformation("no parameters in GetStudentListAsync");
+                throw new ArgumentNullException(nameof(parameters));
+            }
 
-			if (!string.IsNullOrWhiteSpace(parameters.StudentStatus))
-			{
-				parameters.StudentStatus = parameters.StudentStatus.Trim();
-				queryExpression = queryExpression.Where(x => x.StudentStatus == parameters.StudentStatus);
-			}
+            var queryExpression = _efContext.Student as IQueryable<Student>;
+            if (!string.IsNullOrWhiteSpace(parameters.StudentName))
+            {
+                parameters.StudentName = parameters.StudentName.Trim();
+                queryExpression = queryExpression.Where(x => EF.Functions.Like(x.StudentName, $"%{parameters.StudentName}%"));
+            }
 
-			queryExpression.OrderBy(x => x.Id);
+            if (!string.IsNullOrWhiteSpace(parameters.StudentStatus))
+            {
+                parameters.StudentStatus = parameters.StudentStatus.Trim();
+                queryExpression = queryExpression.Where(x => x.StudentStatus == parameters.StudentStatus);
+            }
 
-			return await PagedList<Student>.CreateAsync(queryExpression, parameters.PageNumber, parameters.PageSize);
-		}
+            queryExpression.OrderBy(x => x.Id);
 
-		//public DataTable GetStudents()
-		//{
-		//	return _adoRepository.GetDataTable("select * from student");
-		//}
+            return await PagedList<Student>.CreateAsync(queryExpression, parameters.PageNumber, parameters.PageSize);
+        }
 
-		public void UpdateStudent(Student student)
-		{
-		}
+        //public DataTable GetStudents()
+        //{
+        //	return _adoRepository.GetDataTable("select * from student");
+        //}
 
-		public async Task<bool> SaveAsync()
-		{
-			return await _efContext.SaveChangesAsync() >= 0;
-		}
-	}
+        public void UpdateStudent(Student student)
+        {
+        }
+
+        public async Task<bool> ExistAsync(int studentId)
+        {
+            return await _efContext.Student.AnyAsync(x => x.Id == studentId);
+        }
+
+        public async Task<bool> SaveAsync()
+        {
+            return await _efContext.SaveChangesAsync() >= 0;
+        }
+    }
 }

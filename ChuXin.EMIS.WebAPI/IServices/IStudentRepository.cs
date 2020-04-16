@@ -10,6 +10,8 @@ namespace ChuXin.EMIS.WebAPI.IServices
     {
         // DataTable GetStudents();  Test Ado.Net
 
+        Task<Student> GetStudentAsnyc(int studentId);
+
         Task<PagedList<Student>> GetStudentListAsync(StudentListDtoParameters parameters);
 
         void AddStudent(Student student);
@@ -17,6 +19,8 @@ namespace ChuXin.EMIS.WebAPI.IServices
         void UpdateStudent(Student student);
 
         void DeleteStudent(Student student);
+
+        Task<bool> ExistAsync(int studentId);
 
         Task<bool> SaveAsync();
     }
