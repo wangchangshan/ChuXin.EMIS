@@ -58,5 +58,16 @@ namespace ChuXin.EMIS.WebAPI.DataBaseContext
 		public DbSet<TeacherRole> TeacherRole { get; set; }
 
 		public DbSet<WxPicture> WxPicture { get; set; }
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Entity<Student>(entity =>
+			{
+				entity.HasKey(x => x.Id);
+				entity.Property(x => x.StudentName).IsRequired();
+			});
+		}
 	}
 }

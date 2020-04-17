@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using ChuXin.EMIS.WebAPI.DtoParameters;
@@ -7,10 +6,8 @@ using ChuXin.EMIS.WebAPI.Entities;
 using ChuXin.EMIS.WebAPI.Helpers;
 using ChuXin.EMIS.WebAPI.IServices;
 using ChuXin.EMIS.WebAPI.Models;
-using ChuXin.EMIS.WebAPI.SettingModel;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace ChuXin.EMIS.WebAPI.Controllers.V1
 {
@@ -23,7 +20,6 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
     public class StudentsController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IOptions<AppSetting> _appOptions;
         private readonly IStudentRepository _studentRepository;
         public StudentsController(IStudentRepository studentRepository, IMapper mapper)
         {
@@ -70,23 +66,100 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
         }
 
         /// <summary>
+        /// 整体更新正式学员基本信息
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="studentUpdateDto"></param>
+        /// <returns></returns>
+        [HttpPut("{Id}")]
+        public async Task<IActionResult> UpdateStudent(int Id, [FromBody] StudentUpdateDto studentUpdateDto)
+        {
+            var studentEntity = await _studentRepository.GetStudentAsnyc(Id);
+            if (studentEntity == null)
+            {
+                // 没有则新增
+                var newStudent = _mapper.Map<Student>(studentUpdateDto);
+
+                string studentCode = TableCodeHelper.GenerateCode("student", "student_code", newStudent.StudentRegisterDate);
+                newStudent.StudentCode = studentCode;
+
+                _studentRepository.AddStudent(newStudent);
+                await _studentRepository.SaveAsync();
+            }
+            else
+            {
+                _mapper.Map(studentUpdateDto, studentEntity);
+                _studentRepository.UpdateStudent(studentEntity);
+
+                await _studentRepository.SaveAsync();
+            }
+            return Ok();
+        }
+
+        /// <summary>
         /// 局部更新正式学员基本信息
         /// </summary>
         /// <param name="Id"></param>
-        /// <param name="studentUpateDto"></param>
+        /// <param name="patchDocument"></param>
         /// <returns></returns>
         [HttpPatch("{Id}")]
-        public async Task<IActionResult> UpdateStudent([FromRoute] int Id, [FromBody] JsonPatchDocument<StudentUpdateDto> patchDocument)
+        public async Task<IActionResult> PartiallyUpdateStudent([FromRoute] int Id, [FromBody] JsonPatchDocument<StudentUpdateDto> patchDocument)
         {
-            if (!await _studentRepository.ExistAsync(Id))
+            var studentEntity = await _studentRepository.GetStudentAsnyc(Id);
+            if (studentEntity == null)
+            {
+                // 没有则新增
+                var studentUpdateDto = new StudentUpdateDto();
+                patchDocument.ApplyTo(studentUpdateDto, ModelState);
+
+                if (!TryValidateModel(studentUpdateDto))
+                {
+                    return ValidationProblem(ModelState);
+                }
+
+                var newStudent = _mapper.Map<Student>(studentUpdateDto);
+                string studentCode = TableCodeHelper.GenerateCode("student", "student_code", newStudent.StudentRegisterDate);
+                newStudent.StudentCode = studentCode;
+
+                _studentRepository.AddStudent(newStudent);
+                await _studentRepository.SaveAsync();
+
+                return Ok();
+            }
+
+            var dtoToPatch = _mapper.Map<StudentUpdateDto>(studentEntity);
+
+            patchDocument.ApplyTo(dtoToPatch, ModelState);
+            if (!TryValidateModel(dtoToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            _mapper.Map(dtoToPatch, studentEntity);
+            _studentRepository.UpdateStudent(studentEntity);
+
+            await _studentRepository.SaveAsync();
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// 删除正式学员
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> DeleteStudent(int Id)
+        {
+            var studentEntity = await _studentRepository.GetStudentAsnyc(Id);
+            if (studentEntity == null)
             {
                 return NotFound();
             }
 
-            var studentEntity = await _studentRepository.GetStudentAsnyc(Id);
-            var dtoToPatch = _mapper.Map<StudentUpdateDto>(studentEntity);
+            _studentRepository.DeleteStudent(studentEntity);
 
-            patchDocument.ApplyTo(patchDocument, ModelState);
+            await _studentRepository.SaveAsync();
 
             return Ok();
         }

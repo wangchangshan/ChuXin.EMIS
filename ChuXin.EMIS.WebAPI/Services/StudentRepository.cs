@@ -37,6 +37,7 @@ namespace ChuXin.EMIS.WebAPI.Services
 
         public void DeleteStudent(Student student)
         {
+            _efContext.Student.Remove(student);
         }
 
         public async Task<Student> GetStudentAsnyc(int studentId)
@@ -77,6 +78,7 @@ namespace ChuXin.EMIS.WebAPI.Services
 
         public void UpdateStudent(Student student)
         {
+            // EF 不需要写
         }
 
         public async Task<bool> ExistAsync(int studentId)

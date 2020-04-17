@@ -20,6 +20,30 @@
             <summary>
             添加正式学员
             </summary>
+            <param name="studentAddDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentsController.UpdateStudent(System.Int32,ChuXin.EMIS.WebAPI.Models.StudentUpdateDto)">
+            <summary>
+            整体更新正式学员基本信息
+            </summary>
+            <param name="Id"></param>
+            <param name="studentUpdateDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentsController.PartiallyUpdateStudent(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{ChuXin.EMIS.WebAPI.Models.StudentUpdateDto})">
+            <summary>
+            局部更新正式学员基本信息
+            </summary>
+            <param name="Id"></param>
+            <param name="patchDocument"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentsController.DeleteStudent(System.Int32)">
+            <summary>
+            删除正式学员
+            </summary>
+            <param name="Id"></param>
             <returns></returns>
         </member>
         <member name="T:ChuXin.EMIS.WebAPI.Helpers.AppSettingHelper">

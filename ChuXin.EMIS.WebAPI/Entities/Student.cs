@@ -12,6 +12,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public int Id { get; set; }
 
 		[Column("student_code")]
+		[MaxLength(20)]
 		public string StudentCode { get; set; }
 
 		[Column("student_name")]
@@ -21,7 +22,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public string StudentSex { get; set; }
 
 		[Column("student_birthday")]
-		public DateTime? StudentBirthday { get; set; }
+		public DateTime StudentBirthday { get; set; } = DateTime.MinValue;
 
 		[Column("student_identity_card_num")]
 		public string StudentIdentityCardNum { get; set; }
@@ -36,7 +37,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public string StudentPropagateTxt { get; set; }
 
 		[Column("student_register_date")]
-		public DateTime StudentRegisterDate { get; set; }
+		public DateTime StudentRegisterDate { get; set; } = DateTime.Now;
 
 		[Column("student_address")]
 		public string StudentAddress { get; set; }

@@ -1,12 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ChuXin.EMIS.WebAPI.DataBaseContext;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
+using System;
 
 namespace ChuXin.EMIS.WebAPI
 {
@@ -18,7 +17,17 @@ namespace ChuXin.EMIS.WebAPI
             try
             {
                 logger.Debug("--------------Init Main------------------");
-                CreateHostBuilder(args).Build().Run();
+                var host = CreateHostBuilder(args).Build();
+
+                using (var scope = host.Services.CreateScope())
+                {
+                    var dbContext = scope.ServiceProvider.GetService<EFDbContext>();
+
+                    dbContext.Database.EnsureDeleted();
+                    // 如果数据库不存在，则创建数据库
+                    dbContext.Database.EnsureCreated();
+                    dbContext.Database.Migrate();
+                }
             }
             catch (Exception exception)
             {
