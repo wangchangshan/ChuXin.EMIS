@@ -1,11 +1,13 @@
-﻿namespace ChuXin.EMIS.WebAPI.DtoParameters
+﻿using ChuXin.EMIS.WebAPI.Enums;
+
+namespace ChuXin.EMIS.WebAPI.DtoParameters
 {
 	public class StudentListDtoParameters
 	{
 
 		public string StudentName { get; set; }
 
-		public string StudentStatus { get; set; }
+		public StudentStatusEnum StudentStatus { get; set; }
 
 		public string OrderBy { get; set; } = "Id";
 

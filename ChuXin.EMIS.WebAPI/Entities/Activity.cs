@@ -4,21 +4,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChuXin.EMIS.WebAPI.Entities
 {
-	[Table("sys_activity")]
-	public class SysActivity
+    /// <summary>
+    /// 活动表
+    /// </summary>
+	[Table("activity")]
+	public class Activity
 	{
 		[Key]
 		[Column("activity_id")]
-		public int ActivityId { get; set; }
+		public Guid ActivityId { get; set; }
 
 		[Column("activity_subject")]
+        [MaxLength(100)]
+        [Required]
 		public string ActivitySubject { get; set; }
 
-		[Column("activity_from_date")]
-		public DateTime ActivityFromDate { get; set; }
+		[Column("activity_start_date")]
+		public DateTime? ActivityStartDate { get; set; }
 
-		[Column("activity_to_date")]
-		public DateTime ActivityToDate { get; set; }
+		[Column("activity_end_date")]
+		public DateTime? ActivityEndDate { get; set; }
 
 		[Column("activity_course_count")]
 		public int ActivityCourseCount { get; set; }
@@ -30,9 +35,15 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public decimal ActivityAdultPrice { get; set; }
 
 		[Column("activity_address")]
+        [MaxLength(150)]
+        [Required]
 		public string ActivityAddress { get; set; }
 
 		[Column("activity_content")]
+        [MaxLength]
 		public string ActivityContent { get; set; }
+
+        [Column("create_time")]
+        public DateTime CreateTime { get; set; }
 	}
 }

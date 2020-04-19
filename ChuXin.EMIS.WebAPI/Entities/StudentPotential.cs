@@ -6,10 +6,10 @@ using ChuXin.EMIS.WebAPI.Enums;
 namespace ChuXin.EMIS.WebAPI.Entities
 {
     /// <summary>
-    /// 正式学员表
+    /// 报名试听学员表（潜在的正式学员）
     /// </summary>
-	[Table("student")]
-	public class Student
+	[Table("student_potential")]
+	public class StudentPotential
 	{
 		[Key]
 		[Column("id")]
@@ -17,7 +17,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 
 		[Column("student_code")]
 		[MaxLength(20)]
-        [Required]
+		[Required]
 		public string StudentCode { get; set; }
 
 		[Column("student_name")]
@@ -26,18 +26,18 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public string StudentName { get; set; }
 
 		[Column("student_gender")]
-        [Required]
+		[Required]
 		public GenderEnum StudentGender { get; set; }
 
 		[Column("student_birthday")]
 		public DateTime StudentBirthday { get; set; } = DateTime.MinValue;
 
 		[Column("student_identity_id")]
-        [MaxLength(18)]
+		[MaxLength(18)]
 		public string StudentIdentityId { get; set; }
 
 		[Column("student_phone")]
-        [MaxLength(15)]
+		[MaxLength(15)]
         [Required]
 		public string StudentPhone { get; set; }
 
@@ -45,15 +45,20 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public DateTime StudentRegisterDate { get; set; } = DateTime.Now;
 
 		[Column("student_address")]
-        [MaxLength(150)]
+		[MaxLength(150)]
 		public string StudentAddress { get; set; }
 
 		[Column("student_avatar_path")]
-        [MaxLength(150)]
+		[MaxLength(150)]
 		public string StudentAvatarPath { get; set; }
 
-		[Column("student_status")]
-		public StudentStatusEnum StudentStatus { get; set; }
+		[Column("trial_result")]
+        [Required]
+		public TrailResultEnum TrialResult { get; set; }
+
+		[Column("trial_result_reason")]
+        [MaxLength(100)]
+		public string TrialResultReason { get; set; }
 
 		[Column("student_remark")]
         [MaxLength]

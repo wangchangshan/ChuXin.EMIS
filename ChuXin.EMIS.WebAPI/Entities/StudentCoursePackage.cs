@@ -1,86 +1,112 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ChuXin.EMIS.WebAPI.Enums;
 
 namespace ChuXin.EMIS.WebAPI.Entities
 {
+    /// <summary>
+    /// 学员报名套餐表
+    /// </summary>
 	[Table("student_course_package")]
 	public class StudentCoursePackage
 	{
 		[Key]
-		[Column("id")]
-		public int Id { get; set; }
+		[Column("stu_course_package_id")]
+		public Guid StuCoursePackageId { get; set; }
 
 		[Column("student_code")]
+        [Required]
+        [MaxLength(20)]
 		public string StudentCode { get; set; }
 
 		[Column("student_name")]
+		[Required]
+		[MaxLength(20)]
 		public string StudentName { get; set; }
 
 		[Column("package_code")]
+		[Required]
+		[MaxLength(20)]
 		public string PackageCode { get; set; }
 
 		[Column("package_name")]
+		[Required]
+		[MaxLength(100)]
 		public string PackageName { get; set; }
 
 		[Column("course_category_code")]
+        [Required]
+        [MaxLength(20)]
 		public string CourseCategoryCode { get; set; }
 
 		[Column("course_category_name")]
+		[Required]
+		[MaxLength(20)]
 		public string CourseCategoryName { get; set; }
 
 		[Column("course_folder_code")]
+		[Required]
+		[MaxLength(20)]
 		public string CourseFolderCode { get; set; }
 
 		[Column("course_folder_name")]
+		[Required]
+		[MaxLength(20)]
 		public string CourseFolderName { get; set; }
 
 		[Column("package_course_count")]
+        [Required]
 		public int PackageCourseCount { get; set; }
 
 		[Column("actual_course_count")]
+        [Required]
 		public int ActualCourseCount { get; set; }
 
 		[Column("flex_course_count")]
+        [Required]
 		public int FlexCourseCount { get; set; }
 
 		[Column("package_price")]
+        [Required]
 		public decimal PackagePrice { get; set; }
 
 		[Column("actual_price")]
+        [Required]
 		public decimal ActualPrice { get; set; }
 
 		[Column("fee_back_amount")]
 		public decimal FeeBackAmount { get; set; }
 
 		[Column("is_discount")]
-		public string IsDiscount { get; set; }
+        [Required]
+		public DiscountEnum IsDiscount { get; set; }
 
 		[Column("is_payed")]
-		public string IsPayed { get; set; }
+        [Required]
+		public PayedEnum IsPayed { get; set; }
 
 		[Column("payee_code")]
+		[MaxLength(20)]
 		public string PayeeCode { get; set; }
 
 		[Column("payee_name")]
+		[MaxLength(20)]
 		public string PayeeName { get; set; }
 
-		[Column("pay_pattern_code")]
-		public string PayPatternCode { get; set; }
+		[Column("pay_pattern")]
+		public PayPatternEnum PayPattern { get; set; }
 
-		[Column("pay_pattern_name")]
-		public string PayPatternName { get; set; }
-
-		[Column("pay_date")]
-		public DateTime PayDate { get; set; }
+		[Column("pay_time")]
+		public DateTime? PayTime { get; set; }
 
 		[Column("rest_course_count")]
 		public int RestCourseCount { get; set; }
 
-		[Column("scp_status")]
-		public string ScpStatus { get; set; }
+		[Column("stu_course_package_status")]
+		public StuCoursePackageStatusEnum StuCoursePackageStatus { get; set; }
 
 		[Column("create_time")]
-		public DateTime CreateTime { get; set; }
+		public DateTime CreateTime { get; set; } = DateTime.Now;
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,17 +31,17 @@ namespace ChuXin.EMIS.WebAPI.Services
                 throw new ArgumentNullException(nameof(student));
             }
 
-            _efContext.Student.Add(student);
+            _efContext.Students.Add(student);
         }
 
         public void DeleteStudent(Student student)
         {
-            _efContext.Student.Remove(student);
+            _efContext.Students.Remove(student);
         }
 
         public async Task<Student> GetStudentAsnyc(int studentId)
         {
-            return await _efContext.Student.FirstOrDefaultAsync(x => x.Id == studentId);
+            return await _efContext.Students.FirstOrDefaultAsync(x => x.Id == studentId);
         }
 
         public async Task<PagedList<Student>> GetStudentListAsync(StudentListDtoParameters parameters)
@@ -53,16 +52,15 @@ namespace ChuXin.EMIS.WebAPI.Services
                 throw new ArgumentNullException(nameof(parameters));
             }
 
-            var queryExpression = _efContext.Student as IQueryable<Student>;
+            var queryExpression = _efContext.Students as IQueryable<Student>;
             if (!string.IsNullOrWhiteSpace(parameters.StudentName))
             {
                 parameters.StudentName = parameters.StudentName.Trim();
                 queryExpression = queryExpression.Where(x => EF.Functions.Like(x.StudentName, $"%{parameters.StudentName}%"));
             }
 
-            if (!string.IsNullOrWhiteSpace(parameters.StudentStatus))
+            if (!string.IsNullOrWhiteSpace(parameters.StudentStatus.ToString()))
             {
-                parameters.StudentStatus = parameters.StudentStatus.Trim();
                 queryExpression = queryExpression.Where(x => x.StudentStatus == parameters.StudentStatus);
             }
 
@@ -83,7 +81,7 @@ namespace ChuXin.EMIS.WebAPI.Services
 
         public async Task<bool> ExistAsync(int studentId)
         {
-            return await _efContext.Student.AnyAsync(x => x.Id == studentId);
+            return await _efContext.Students.AnyAsync(x => x.Id == studentId);
         }
 
         public async Task<bool> SaveAsync()
