@@ -46,6 +46,81 @@
             <param name="Id"></param>
             <returns></returns>
         </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.Activity">
+            <summary>
+            活动表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.ActivityImage">
+            <summary>
+            活动图片表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.ActivityStudent">
+            <summary>
+            活动参与学员表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.CoursePackage">
+            <summary>
+            课程套餐表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.ScheduleTemplate">
+            <summary>
+            排课模板表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.ScheduleTemplateDtl">
+            <summary>
+            排课模板详细信息表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.Student">
+            <summary>
+            正式学员表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.StudentCourseComment">
+            <summary>
+            课堂评语表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.StudentCourseExperience">
+            <summary>
+            课程试听（体验）学员表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.StudentCourseList">
+            <summary>
+            学员课程记录表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.StudentCoursePackage">
+            <summary>
+            学员报名套餐表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.StudentCourseSchedule">
+            <summary>
+            课程安排表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.StudentPotential">
+            <summary>
+            报名试听学员表（潜在的正式学员）
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.StudentRecommendation">
+            <summary>
+            学员介绍推荐表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.SysCodeFactory">
+            <summary>
+            系统编码生成表
+            </summary>
+        </member>
         <member name="T:ChuXin.EMIS.WebAPI.Helpers.AppSettingHelper">
             <summary>
             用于获取 EMISSetting 配置节点的值

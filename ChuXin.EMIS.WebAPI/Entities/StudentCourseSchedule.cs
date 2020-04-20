@@ -5,9 +5,9 @@ using ChuXin.EMIS.WebAPI.Enums;
 
 namespace ChuXin.EMIS.WebAPI.Entities
 {
-    /// <summary>
-    /// 课程安排表
-    /// </summary>
+	/// <summary>
+	/// 课程安排表
+	/// </summary>
 	[Table("student_course_schedule")]
 	public class StudentCourseSchedule
 	{
@@ -16,31 +16,31 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public Guid StuCourseScheduleId { get; set; }
 
 		[Column("stu_course_package_id")]
-        [Required]
+		[Required]
 		public Guid StuCoursePackageId { get; set; }
 
 		[Column("sch_template_code")]
-        [Required]
-        [MaxLength(10)]
+		[Required]
+		[MaxLength(10)]
 		public string SchTemplateCode { get; set; }
 
 		[Column("classroom")]
-        [Required]
-        [MaxLength(20)]
+		[Required]
+		[MaxLength(20)]
 		public string Classroom { get; set; }
 
 		[Column("course_period")]
-        [Required]
-        [MaxLength(20)]
+		[Required]
+		[MaxLength(20)]
 		public string CoursePeriod { get; set; }
 
 		[Column("week_index")]
-        [Required]
+		[Required]
 		public WeekEnum WeekIndex { get; set; }
 
 		[Column("student_code")]
-        [Required]
-        [MaxLength(20)]
+		[Required]
+		[MaxLength(20)]
 		public string StudentCode { get; set; }
 
 		[Column("student_name")]
@@ -54,18 +54,18 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public string CoursePackageCode { get; set; }
 
 		[Column("course_total_count")]
-        [Required]
+		[Required]
 		public int CourseTotalCount { get; set; }
 
 		[Column("course_rest_count")]
-        [Required]
+		[Required]
 		public int CourseRestCount { get; set; }
 
 		[Column("course_type")]
-        [Required]
+		[Required]
 		public CourseTypeEnum CourseType { get; set; }
 
 		[Column("create_time")]
-		public DateTime CreateTime { get; set; } = DateTime.Now;
+		public DateTime CreateTime { get; set; }
 	}
 }

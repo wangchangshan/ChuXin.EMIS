@@ -1,9 +1,13 @@
-﻿using System;
+﻿using ChuXin.EMIS.WebAPI.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChuXin.EMIS.WebAPI.Entities
 {
+	/// <summary>
+	/// 系统用户表（添加教师即写入当前表）
+	/// </summary>
 	[Table("sys_user")]
 	public class SysUser
 	{
@@ -12,27 +16,49 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public int Id { get; set; }
 
 		[Column("login_code")]
+		[Required]
+		[MaxLength(20)]
 		public string LoginCode { get; set; }
 
 		[Column("pwd")]
+		[Required]
+		[MaxLength(50)]
 		public string Pwd { get; set; }
 
+		[Column("enabled_login")]
+		[Required]
+		public EnabledEnum EnabledLogin{ get; set; }
+
+		[Column("nick_name")]
+		[MaxLength(20)]
+		public string NickName { get; set; }
+
+		[Column("is_teacher")]
+		[Required]
+		public bool IsTeacher{ get; set; }
+
 		[Column("teacher_code")]
+		[MaxLength(20)]
 		public string TeacherCode { get; set; }
 
-		[Column("token")]
-		public string Token { get; set; }
+		[Column("teacher_name")]
+		[MaxLength(20)]
+		public string TeacherName { get; set; }
 
-		[Column("token_expire_time")]
+		[Column("access_token")]
+		public Guid AccessToken { get; set; }
+
+		[Column("access_expire_time")]
 		public DateTime? TokenExpireTime { get; set; }
-
-		[Column("fail_count")]
-		public int FailCount { get; set; }
 
 		[Column("last_login_time")]
 		public DateTime? LastLoginTime { get; set; }
 
 		[Column("last_login_ip")]
+		[MaxLength(45)]
 		public string LastLoginIP { get; set; }
+
+		[Column("create_time")]
+		public DateTime CreateTime { get; set; }
 	}
 }

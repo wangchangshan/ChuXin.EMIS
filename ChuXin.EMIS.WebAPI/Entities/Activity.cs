@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChuXin.EMIS.WebAPI.Entities
 {
-    /// <summary>
-    /// 活动表
-    /// </summary>
+	/// <summary>
+	/// 活动表
+	/// </summary>
 	[Table("activity")]
 	public class Activity
 	{
@@ -15,8 +15,8 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public Guid ActivityId { get; set; }
 
 		[Column("activity_subject")]
-        [MaxLength(100)]
-        [Required]
+		[MaxLength(100)]
+		[Required]
 		public string ActivitySubject { get; set; }
 
 		[Column("activity_start_date")]
@@ -35,15 +35,15 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public decimal ActivityAdultPrice { get; set; }
 
 		[Column("activity_address")]
-        [MaxLength(150)]
-        [Required]
+		[MaxLength(150)]
+		[Required]
 		public string ActivityAddress { get; set; }
 
 		[Column("activity_content")]
-        [MaxLength]
+		[MaxLength]
 		public string ActivityContent { get; set; }
 
-        [Column("create_time")]
-        public DateTime CreateTime { get; set; }
+		[Column("create_time")]
+		public DateTime CreateTime { get; set; }
 	}
 }

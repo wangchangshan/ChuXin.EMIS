@@ -5,9 +5,9 @@ using ChuXin.EMIS.WebAPI.Enums;
 
 namespace ChuXin.EMIS.WebAPI.Entities
 {
-    /// <summary>
-    /// 学员报名套餐表
-    /// </summary>
+	/// <summary>
+	/// 学员报名套餐表
+	/// </summary>
 	[Table("student_course_package")]
 	public class StudentCoursePackage
 	{
@@ -16,8 +16,8 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public Guid StuCoursePackageId { get; set; }
 
 		[Column("student_code")]
-        [Required]
-        [MaxLength(20)]
+		[Required]
+		[MaxLength(20)]
 		public string StudentCode { get; set; }
 
 		[Column("student_name")]
@@ -36,8 +36,8 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public string PackageName { get; set; }
 
 		[Column("course_category_code")]
-        [Required]
-        [MaxLength(20)]
+		[Required]
+		[MaxLength(20)]
 		public string CourseCategoryCode { get; set; }
 
 		[Column("course_category_name")]
@@ -56,34 +56,34 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public string CourseFolderName { get; set; }
 
 		[Column("package_course_count")]
-        [Required]
+		[Required]
 		public int PackageCourseCount { get; set; }
 
 		[Column("actual_course_count")]
-        [Required]
+		[Required]
 		public int ActualCourseCount { get; set; }
 
 		[Column("flex_course_count")]
-        [Required]
+		[Required]
 		public int FlexCourseCount { get; set; }
 
 		[Column("package_price")]
-        [Required]
+		[Required]
 		public decimal PackagePrice { get; set; }
 
 		[Column("actual_price")]
-        [Required]
+		[Required]
 		public decimal ActualPrice { get; set; }
 
 		[Column("fee_back_amount")]
 		public decimal FeeBackAmount { get; set; }
 
 		[Column("is_discount")]
-        [Required]
+		[Required]
 		public DiscountEnum IsDiscount { get; set; }
 
 		[Column("is_payed")]
-        [Required]
+		[Required]
 		public PayedEnum IsPayed { get; set; }
 
 		[Column("payee_code")]
@@ -107,6 +107,6 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public StuCoursePackageStatusEnum StuCoursePackageStatus { get; set; }
 
 		[Column("create_time")]
-		public DateTime CreateTime { get; set; } = DateTime.Now;
+		public DateTime CreateTime { get; set; }
 	}
 }

@@ -23,11 +23,13 @@ namespace ChuXin.EMIS.WebAPI
                 {
                     var dbContext = scope.ServiceProvider.GetService<EFDbContext>();
 
-                    dbContext.Database.EnsureDeleted();
-                    // 如果数据库不存在，则创建数据库
-                    dbContext.Database.EnsureCreated();
-                    dbContext.Database.Migrate();
+                    //dbContext.Database.EnsureDeleted();
+                    //// 如果数据库不存在，则创建数据库
+                    //dbContext.Database.EnsureCreated();
+                    //dbContext.Database.Migrate();
                 }
+
+                host.Run();
             }
             catch (Exception exception)
             {

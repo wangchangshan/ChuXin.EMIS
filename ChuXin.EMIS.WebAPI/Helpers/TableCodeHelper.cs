@@ -44,7 +44,7 @@ namespace ChuXin.EMIS.WebAPI.Helpers
 
             var dbContext = ServiceProvider.GetService(typeof(EFDbContext)) as EFDbContext;
 
-            var codeFactory = dbContext.SysCodeFactory.Where(f => f.TableName == tableName
+            var codeFactory = dbContext.SysCodeFactories.Where(f => f.TableName == tableName
                                                      && f.ColumnName == columnName
                                                      && f.Prefix == perfix)
                                          .FirstOrDefault();
@@ -67,7 +67,7 @@ namespace ChuXin.EMIS.WebAPI.Helpers
                     SequenceLength = length,
                     CurrentNum = 1
                 };
-                dbContext.SysCodeFactory.Add(factory);
+                dbContext.SysCodeFactories.Add(factory);
                 dbContext.SaveChanges();
 
                 result = perfix + "1".PadLeft(length, '0');

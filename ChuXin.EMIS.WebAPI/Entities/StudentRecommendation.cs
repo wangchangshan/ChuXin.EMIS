@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChuXin.EMIS.WebAPI.Entities
 {
-    /// <summary>
-    /// 学员介绍推荐表
-    /// </summary>
+	/// <summary>
+	/// 学员介绍推荐表
+	/// </summary>
 	[Table("student_recommendation")]
 	public class StudentRecommendation
 	{
@@ -15,8 +15,8 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public int Id { get; set; }
 
 		[Column("origin_student_code")]
-        [Required]
-        [MaxLength(20)]
+		[Required]
+		[MaxLength(20)]
 		public string OriginStudentCode { get; set; }
 
 		[Column("origin_student_name")]
@@ -35,6 +35,6 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public string NewStudentName { get; set; }
 
 		[Column("create_time")]
-		public DateTime CreateTime { get; set; } = DateTime.Now;
+		public DateTime CreateTime { get; set; }
 	}
 }

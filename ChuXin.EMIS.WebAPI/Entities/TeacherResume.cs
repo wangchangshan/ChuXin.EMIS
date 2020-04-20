@@ -5,28 +5,29 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ChuXin.EMIS.WebAPI.Entities
 {
 	/// <summary>
-	/// 活动参与学员表
+	/// 教师简历表
 	/// </summary>
-	[Table("activity_student")]
-	public class ActivityStudent
+	[Table("teacher_resume")]
+	public class TeacherResume
 	{
 		[Key]
 		[Column("id")]
 		public int Id { get; set; }
 
-		[Column("activity_id")]
+		[Column("teacher_code")]
 		[Required]
-		public Guid ActivityId { get; set; }
-
-		[Column("student_code")]
 		[MaxLength(20)]
-		[Required]
-		public string StudentCode { get; set; }
+		public string TeacherCode { get; set; }
 
-		[Column("student_name")]
-		[MaxLength(20)]
+		[Column("teacher_name")]
 		[Required]
-		public string StudentName { get; set; }
+		[MaxLength(20)]
+		public string TeacherName { get; set; }
+
+		[Column("resume_path")]
+		[Required]
+		[MaxLength(20)]
+		public string ResumePath { get; set; }
 
 		[Column("create_time")]
 		public DateTime CreateTime { get; set; }

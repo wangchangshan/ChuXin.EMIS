@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChuXin.EMIS.WebAPI.Entities
 {
-    /// <summary>
-    /// 活动图片表
-    /// </summary>
+	/// <summary>
+	/// 活动图片表
+	/// </summary>
 	[Table("activity_image")]
 	public class ActivityImage
 	{
@@ -15,31 +15,31 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public int Id { get; set; }
 
 		[Column("temp_uid")]
-        [MaxLength(50)]
+		[MaxLength(40)]
 		public string TempUId { get; set; }
 
 		[Column("activity_id")]
-        [Required]
+		[Required]
 		public Guid ActivityId { get; set; }
 
 		[Column("activity_image_name")]
-        [MaxLength(100)]
+		[MaxLength(100)]
 		public string ActivityImageName { get; set; }
 
 		[Column("activity_image_path")]
-        [MaxLength(200)]
-        [Required]
+		[MaxLength(200)]
+		[Required]
 		public string ActivityImagePath { get; set; }
 
 		[Column("activity_image_width_height")]
-        [MaxLength(20)]
+		[MaxLength(20)]
 		public string ActivityImageWidthHeight { get; set; }
 
 		[Column("activity_image_size")]
-        [Required]
+		[Required]
 		public int ActivityImageSize { get; set; }
 
 		[Column("create_time")]
-		public DateTime CreateTime { get; set; } = DateTime.Now;
+		public DateTime CreateTime { get; set; }
 	}
 }

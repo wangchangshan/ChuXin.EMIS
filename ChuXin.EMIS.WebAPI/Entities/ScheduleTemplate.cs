@@ -17,19 +17,19 @@ namespace ChuXin.EMIS.WebAPI.Entities
 
 		[Column("sch_template_code")]
 		[Required]
-        [MaxLength(10)]
+		[MaxLength(10)]
 		public string SchTemplateCode { get; set; }
 
 		[Column("sch_template_name")]
-        [Required]
-        [MaxLength(100)]
+		[Required]
+		[MaxLength(100)]
 		public string SchTemplateName { get; set; }
 
 		[Column("sch_template_enabled")]
-        [Required]
+		[Required]
 		public EnabledEnum SchTemplateEnabled { get; set; }
 
 		[Column("create_time")]
-		public DateTime CreateTime { get; set; } = DateTime.Now;
+		public DateTime CreateTime { get; set; }
 	}
 }

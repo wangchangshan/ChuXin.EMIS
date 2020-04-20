@@ -5,9 +5,9 @@ using ChuXin.EMIS.WebAPI.Enums;
 
 namespace ChuXin.EMIS.WebAPI.Entities
 {
-    /// <summary>
-    /// 报名试听学员表（潜在的正式学员）
-    /// </summary>
+	/// <summary>
+	/// 报名试听学员表（潜在的正式学员）
+	/// </summary>
 	[Table("student_potential")]
 	public class StudentPotential
 	{
@@ -38,7 +38,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 
 		[Column("student_phone")]
 		[MaxLength(15)]
-        [Required]
+		[Required]
 		public string StudentPhone { get; set; }
 
 		[Column("student_register_date")]
@@ -53,18 +53,18 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public string StudentAvatarPath { get; set; }
 
 		[Column("trial_result")]
-        [Required]
+		[Required]
 		public TrailResultEnum TrialResult { get; set; }
 
 		[Column("trial_result_reason")]
-        [MaxLength(100)]
+		[MaxLength(100)]
 		public string TrialResultReason { get; set; }
 
 		[Column("student_remark")]
-        [MaxLength]
+		[MaxLength]
 		public string StudentRemark { get; set; }
 
 		[Column("create_time")]
-		public DateTime CreateTime { get; set; } = DateTime.Now;
+		public DateTime CreateTime { get; set; }
 	}
 }
