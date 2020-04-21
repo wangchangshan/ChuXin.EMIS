@@ -33,7 +33,7 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
         /// <param name="parameters"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetStudentsAsync([FromQuery] StudentListDtoParameters parameters)
+        public async Task<IActionResult> GetStudentsAsync([FromQuery] StudentListDtoParams parameters)
         {
             parameters.PageSize = 15;
             var studentList = await _studentRepository.GetStudentListAsync(parameters);

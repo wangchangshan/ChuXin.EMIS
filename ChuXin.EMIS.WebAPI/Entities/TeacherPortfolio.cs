@@ -61,6 +61,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public DocStatusEnum DocStatus { get; set; }
 
 		[Column("create_time")]
+		[Required]
 		public DateTime CreateTime { get; set; }
 	}
 }

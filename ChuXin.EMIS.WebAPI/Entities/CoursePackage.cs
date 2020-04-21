@@ -9,7 +9,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 	/// 课程套餐表
 	/// </summary>
 	[Table("course_package")]
-	public class CoursePackage
+	public class CoursePackage : AbCommonField
 	{
 		[Key]
 		[Column("id")]
@@ -45,8 +45,5 @@ namespace ChuXin.EMIS.WebAPI.Entities
 
 		[Column("package_enabled")]
 		public EnabledEnum PackageEnabled { get; set; }
-
-		[Column("create_time")]
-		public DateTime CreateTime { get; set; }
 	}
 }

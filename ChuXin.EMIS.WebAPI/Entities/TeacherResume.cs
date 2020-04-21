@@ -30,6 +30,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public string ResumePath { get; set; }
 
 		[Column("create_time")]
+		[Required]
 		public DateTime CreateTime { get; set; }
 	}
 }

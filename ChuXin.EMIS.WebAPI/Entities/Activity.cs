@@ -8,7 +8,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 	/// 活动表
 	/// </summary>
 	[Table("activity")]
-	public class Activity
+	public class Activity : AbCommonField
 	{
 		[Key]
 		[Column("activity_id")]
@@ -42,8 +42,5 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("activity_content")]
 		[MaxLength]
 		public string ActivityContent { get; set; }
-
-		[Column("create_time")]
-		public DateTime CreateTime { get; set; }
 	}
 }

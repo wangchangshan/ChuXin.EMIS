@@ -2,9 +2,8 @@
 
 namespace ChuXin.EMIS.WebAPI.DtoParameters
 {
-	public class StudentListDtoParameters
+	public class StudentListDtoParams
 	{
-
 		public string StudentName { get; set; }
 
 		public StudentStatusEnum StudentStatus { get; set; }
@@ -15,7 +14,8 @@ namespace ChuXin.EMIS.WebAPI.DtoParameters
 
 		private int _pageSize = 15;
 		private const int MaxPageSize = 100;
-		public int PageSize {
+		public int PageSize
+		{
 			get => _pageSize;
 			set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
 		}

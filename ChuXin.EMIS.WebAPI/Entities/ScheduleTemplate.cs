@@ -9,7 +9,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 	/// 排课模板表
 	/// </summary>
 	[Table("schedule_template")]
-	public class ScheduleTemplate
+	public class ScheduleTemplate : AbCommonField
 	{
 		[Key]
 		[Column("id")]
@@ -28,8 +28,5 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("sch_template_enabled")]
 		[Required]
 		public EnabledEnum SchTemplateEnabled { get; set; }
-
-		[Column("create_time")]
-		public DateTime CreateTime { get; set; }
 	}
 }

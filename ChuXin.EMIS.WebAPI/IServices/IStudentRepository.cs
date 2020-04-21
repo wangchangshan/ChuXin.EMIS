@@ -12,7 +12,7 @@ namespace ChuXin.EMIS.WebAPI.IServices
 
         Task<Student> GetStudentAsnyc(int studentId);
 
-        Task<PagedList<Student>> GetStudentListAsync(StudentListDtoParameters parameters);
+        Task<PagedList<Student>> GetStudentListAsync(StudentListDtoParams parameters);
 
         void AddStudent(Student student);
 

@@ -10,7 +10,7 @@
         <LaunchUrl>swagger</LaunchUrl>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-      <DocumentationFile>D:\cswang\myproject\ChuXin.EMIS\ChuXin.EMIS.WebAPI\ChuXin.EMIS.WebAPI.xml</DocumentationFile>
+      <DocumentationFile>$(BaseOutputPath)/ChuXin.EMIS.WebAPI.xml</DocumentationFile>
       <NoWarn>1701;1702;1591;</NoWarn>
     </PropertyGroup>
     <ItemGroup>

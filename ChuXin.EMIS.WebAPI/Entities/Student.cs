@@ -9,7 +9,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 	/// 正式学员表
 	/// </summary>
 	[Table("student")]
-	public class Student
+	public class Student : AbCommonField
 	{
 		[Key]
 		[Column("id")]
@@ -62,8 +62,5 @@ namespace ChuXin.EMIS.WebAPI.Entities
 
 		[Column("student_status")]
 		public StudentStatusEnum StudentStatus { get; set; }
-
-		[Column("create_time")]
-		public DateTime CreateTime { get; set; }
 	}
 }

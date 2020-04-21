@@ -8,7 +8,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 	/// 活动图片表
 	/// </summary>
 	[Table("activity_image")]
-	public class ActivityImage
+	public class ActivityImage : AbCommonField
 	{
 		[Key]
 		[Column("id")]
@@ -38,8 +38,5 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("activity_image_size")]
 		[Required]
 		public int ActivityImageSize { get; set; }
-
-		[Column("create_time")]
-		public DateTime CreateTime { get; set; }
 	}
 }

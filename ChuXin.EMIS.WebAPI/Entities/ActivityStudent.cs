@@ -8,7 +8,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 	/// 活动参与学员表
 	/// </summary>
 	[Table("activity_student")]
-	public class ActivityStudent
+	public class ActivityStudent : AbCommonField
 	{
 		[Key]
 		[Column("id")]
@@ -27,8 +27,5 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[MaxLength(20)]
 		[Required]
 		public string StudentName { get; set; }
-
-		[Column("create_time")]
-		public DateTime CreateTime { get; set; }
 	}
 }

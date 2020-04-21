@@ -9,7 +9,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 	/// 假期表
 	/// </summary>
 	[Table("holiday")]
-	public class Holiday
+	public class Holiday : AbCommonField
 	{
 		[Key]
 		[Column("id")]
@@ -25,8 +25,5 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("create_by")]
 		[Required]
 		public string CreateBy { get; set; }
-
-		[Column("create_time")]
-		public DateTime CreateTime { get; set; }
 	}
 }

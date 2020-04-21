@@ -44,7 +44,7 @@ namespace ChuXin.EMIS.WebAPI.Services
             return await _efContext.Students.FirstOrDefaultAsync(x => x.Id == studentId);
         }
 
-        public async Task<PagedList<Student>> GetStudentListAsync(StudentListDtoParameters parameters)
+        public async Task<PagedList<Student>> GetStudentListAsync(StudentListDtoParams parameters)
         {
             if (parameters == null)
             {

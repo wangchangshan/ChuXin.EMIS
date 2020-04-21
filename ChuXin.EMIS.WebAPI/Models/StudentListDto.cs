@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChuXin.EMIS.WebAPI.Enums;
+using System;
 
 namespace ChuXin.EMIS.WebAPI.Models
 {
@@ -10,7 +11,7 @@ namespace ChuXin.EMIS.WebAPI.Models
 
 		public string StudentName { get; set; }
 
-		public string StudentSex { get; set; }
+		public GenderEnum StudentGender { get; set; }
 
 		public DateTime StudentBirthday { get; set; }
 
@@ -20,6 +21,6 @@ namespace ChuXin.EMIS.WebAPI.Models
 
 		public string StudentAvatarPath { get; set; }
 
-		public string StudentStatus { get; set; }
+		public StudentStatusEnum StudentStatus { get; set; }
 	}
 }

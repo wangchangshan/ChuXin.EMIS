@@ -9,13 +9,13 @@ namespace ChuXin.EMIS.WebAPI.Entities
 	/// 微信小程序使用的图片
 	/// </summary>
 	[Table("wechat_portfolio")]
-	public class WechatPortfolio
+	public class WechatPortfolio : AbCommonField
 	{
 		[Key]
 		[Column("id")]
 		public int Id { get; set; }
 
-		[Column("doc_type")]
+		[Column("doc_type", Order = 1)]
 		[Required]
 		public WechatDocTypeEnum DocType { get; set; }
 
@@ -48,8 +48,5 @@ namespace ChuXin.EMIS.WebAPI.Entities
 
 		[Column("author_sex")]
 		public GenderEnum StudentSex { get; set; }
-
-		[Column("create_time")]
-		public DateTime CreateTime { get; set; }
 	}
 }
