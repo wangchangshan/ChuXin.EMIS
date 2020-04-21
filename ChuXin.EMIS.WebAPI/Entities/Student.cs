@@ -9,7 +9,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 	/// 正式学员表
 	/// </summary>
 	[Table("student")]
-	public class Student : AbCommonField
+	public class Student
 	{
 		[Key]
 		[Column("id")]
@@ -62,5 +62,24 @@ namespace ChuXin.EMIS.WebAPI.Entities
 
 		[Column("student_status")]
 		public StudentStatusEnum StudentStatus { get; set; }
+
+		[Column("create_by")]
+		[MaxLength(20)]
+		public string CreateBy { get; set; }
+
+		[Column("create_time")]
+		[Required]
+		public DateTime? CreateTime { get; set; }
+
+		[Column("delete_by")]
+		[MaxLength(20)]
+		public string DeleteBy { get; set; }
+
+		[Column("delete_time")]
+		public DateTime? DeleteTime { get; set; }
+
+		[Column("line_flag")]
+		[Required]
+		public LineFlagEnum LineFlag { get; set; }
 	}
 }

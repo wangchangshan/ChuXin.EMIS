@@ -9,7 +9,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 	/// 假期表
 	/// </summary>
 	[Table("holiday")]
-	public class Holiday : AbCommonField
+	public class Holiday
 	{
 		[Key]
 		[Column("id")]
@@ -23,7 +23,22 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		public WeekEnum WeekIndex { get; set; }
 
 		[Column("create_by")]
-		[Required]
+		[MaxLength(20)]
 		public string CreateBy { get; set; }
+
+		[Column("create_time")]
+		[Required]
+		public DateTime? CreateTime { get; set; }
+
+		[Column("delete_by")]
+		[MaxLength(20)]
+		public string DeleteBy { get; set; }
+
+		[Column("delete_time")]
+		public DateTime? DeleteTime { get; set; }
+
+		[Column("line_flag")]
+		[Required]
+		public LineFlagEnum LineFlag { get; set; }
 	}
 }

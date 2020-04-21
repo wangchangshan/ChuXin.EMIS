@@ -56,8 +56,23 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("last_request_time")]
 		public DateTime? LastRequestTime { get; set; }
 
+		[Column("create_by")]
+		[MaxLength(20)]
+		public string CreateBy { get; set; }
+
 		[Column("create_time")]
 		[Required]
-		public DateTime CreateTime { get; set; }
+		public DateTime? CreateTime { get; set; }
+
+		[Column("delete_by")]
+		[MaxLength(20)]
+		public string DeleteBy { get; set; }
+
+		[Column("delete_time")]
+		public DateTime? DeleteTime { get; set; }
+
+		[Column("line_flag")]
+		[Required]
+		public LineFlagEnum LineFlag { get; set; }
 	}
 }
