@@ -9,7 +9,7 @@
             正式学员
             </summary>
         </member>
-        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentsController.GetStudentsAsync(ChuXin.EMIS.WebAPI.DtoParameters.StudentListDtoParameters)">
+        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentsController.GetStudentsAsync(ChuXin.EMIS.WebAPI.DtoParameters.StudentListDtoParams)">
             <summary>
             获取正式学员列表 也可用于导出学员列表
             </summary>
@@ -46,6 +46,12 @@
             <param name="Id"></param>
             <returns></returns>
         </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.AbCommonField">
+            <summary>
+            公用数据库字段的抽象
+            由于实体类实现后，总是将字段生成在主键之后（可能是mysql问题），因此暂时不用。
+            </summary>
+        </member>
         <member name="T:ChuXin.EMIS.WebAPI.Entities.Activity">
             <summary>
             活动表
@@ -64,6 +70,11 @@
         <member name="T:ChuXin.EMIS.WebAPI.Entities.CoursePackage">
             <summary>
             课程套餐表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.Holiday">
+            <summary>
+            假期表
             </summary>
         </member>
         <member name="T:ChuXin.EMIS.WebAPI.Entities.ScheduleTemplate">
@@ -106,6 +117,11 @@
             课程安排表
             </summary>
         </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.StudentPortfolio">
+            <summary>
+            学员作品文档表
+            </summary>
+        </member>
         <member name="T:ChuXin.EMIS.WebAPI.Entities.StudentPotential">
             <summary>
             报名试听学员表（潜在的正式学员）
@@ -119,6 +135,66 @@
         <member name="T:ChuXin.EMIS.WebAPI.Entities.SysCodeFactory">
             <summary>
             系统编码生成表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.SysDictionary">
+            <summary>
+            字典表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.SysMenu">
+            <summary>
+            系统菜单表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.SysRole">
+            <summary>
+            系统角色表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.SysUser">
+            <summary>
+            系统用户表（添加教师即写入当前表）
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.SysUserLoginRecored">
+            <summary>
+            用户登录记录表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.SysUserRole">
+            <summary>
+            用户角色映射表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.SysUserWechat">
+            <summary>
+            微信小程序用户表
+            </summary>
+        </member>
+        <member name="P:ChuXin.EMIS.WebAPI.Entities.SysUserWechat.SessionKey">
+            <summary>
+            存储加密后的sessionKey
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.Teacher">
+            <summary>
+            教师表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.TeacherPortfolio">
+            <summary>
+            教师作品文档表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.TeacherResume">
+            <summary>
+            教师简历表
+            </summary>
+        </member>
+        <member name="T:ChuXin.EMIS.WebAPI.Entities.WechatPortfolio">
+            <summary>
+            微信小程序使用的图片
             </summary>
         </member>
         <member name="T:ChuXin.EMIS.WebAPI.Helpers.AppSettingHelper">
