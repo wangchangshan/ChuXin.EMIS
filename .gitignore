@@ -404,4 +404,6 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 /ChuXin.EMIS.WebAPI/Migrations
+
+# Visual Studio Out Put file
 /ChuXin.EMIS.WebAPI/ChuXin.EMIS.WebAPI.xml

@@ -19,15 +19,15 @@ namespace ChuXin.EMIS.WebAPI
                 logger.Debug("--------------Init Main------------------");
                 var host = CreateHostBuilder(args).Build();
 
-                using (var scope = host.Services.CreateScope())
-                {
-                    var dbContext = scope.ServiceProvider.GetService<EFDbContext>();
+                //using (var scope = host.Services.CreateScope())
+                //{
+                //    var dbContext = scope.ServiceProvider.GetService<EFDbContext>();
 
-                    //dbContext.Database.EnsureDeleted();
-                    // 如果数据库不存在，则创建数据库
-                    dbContext.Database.EnsureCreated();
-                    dbContext.Database.Migrate();
-                }
+                //    //dbContext.Database.EnsureDeleted();
+                //    // 如果数据库不存在，则创建数据库
+                //    dbContext.Database.EnsureCreated();
+                //    dbContext.Database.Migrate();
+                //}
 
                 host.Run();
             }

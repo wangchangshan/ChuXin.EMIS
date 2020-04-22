@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using ChuXin.EMIS.WebAPI.DtoParameters;
 using ChuXin.EMIS.WebAPI.IServices;
 using ChuXin.EMIS.WebAPI.Models;
+using ChuXin.EMIS.WebAPI.ModelsParameters;
 using ChuXin.EMIS.WebAPI.SettingModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

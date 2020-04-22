@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using ChuXin.EMIS.WebAPI.DtoParameters;
 using ChuXin.EMIS.WebAPI.Entities;
 using ChuXin.EMIS.WebAPI.Helpers;
 using ChuXin.EMIS.WebAPI.IServices;
 using ChuXin.EMIS.WebAPI.Models;
+using ChuXin.EMIS.WebAPI.ModelsParameters;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,6 +54,7 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
 
             string studentCode = TableCodeHelper.GenerateCode("student", "student_code", studentAddDto.StudentRegisterDate);
             student.StudentCode = studentCode;
+
             _studentRepository.AddStudent(student);
             bool flag = await _studentRepository.SaveAsync();
             if (flag)

@@ -11,7 +11,7 @@ namespace ChuXin.EMIS.WebAPI.Models
 
 		public string StudentName { get; set; }
 
-		public GenderEnum StudentGender { get; set; }
+		public string StudentGenderDisplay { get; set; }
 
 		public DateTime StudentBirthday { get; set; }
 
@@ -21,6 +21,6 @@ namespace ChuXin.EMIS.WebAPI.Models
 
 		public string StudentAvatarPath { get; set; }
 
-		public StudentStatusEnum StudentStatus { get; set; }
+		public string StudentStatusDisplay { get; set; }
 	}
 }

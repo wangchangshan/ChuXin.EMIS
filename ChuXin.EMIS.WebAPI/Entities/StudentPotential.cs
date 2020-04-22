@@ -41,9 +41,6 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Required]
 		public string StudentPhone { get; set; }
 
-		[Column("student_register_date")]
-		public DateTime StudentRegisterDate { get; set; } = DateTime.Now;
-
 		[Column("student_address")]
 		[MaxLength(150)]
 		public string StudentAddress { get; set; }

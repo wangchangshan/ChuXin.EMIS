@@ -78,6 +78,7 @@ namespace ChuXin.EMIS.WebAPI
 			// 业务服务注册
 			services.AddTransient<IAdoRepository, AdoRepository>();
 			services.AddScoped<IStudentRepository, StudentRepository>();
+			services.AddScoped<IStudentPotentialRepository, StudentPotentialRepository>();
 
 			services.AddControllers()
 			.AddNewtonsoftJson(setup =>

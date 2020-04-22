@@ -3,10 +3,11 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using ChuXin.EMIS.WebAPI.DataBaseContext;
-using ChuXin.EMIS.WebAPI.DtoParameters;
 using ChuXin.EMIS.WebAPI.Entities;
+using ChuXin.EMIS.WebAPI.Enums;
 using ChuXin.EMIS.WebAPI.Helpers;
 using ChuXin.EMIS.WebAPI.IServices;
+using ChuXin.EMIS.WebAPI.ModelsParameters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -31,6 +32,9 @@ namespace ChuXin.EMIS.WebAPI.Services
                 throw new ArgumentNullException(nameof(student));
             }
 
+            student.StudentStatus = StudentStatusEnum.正常在学;
+            student.CreateTime = DateTime.Now;
+            student.LineFlag = LineFlagEnum.正常数据;
             _efContext.Students.Add(student);
         }
 
@@ -41,17 +45,11 @@ namespace ChuXin.EMIS.WebAPI.Services
 
         public async Task<Student> GetStudentAsnyc(int studentId)
         {
-            return await _efContext.Students.FirstOrDefaultAsync(x => x.Id == studentId);
+            return await _efContext.Students.FirstOrDefaultAsync(x => x.Id == studentId && x.LineFlag == LineFlagEnum.正常数据);
         }
 
         public async Task<PagedList<Student>> GetStudentListAsync(StudentListDtoParams parameters)
         {
-            if (parameters == null)
-            {
-                _logger.LogInformation("no parameters in GetStudentListAsync");
-                throw new ArgumentNullException(nameof(parameters));
-            }
-
             var queryExpression = _efContext.Students as IQueryable<Student>;
             if (!string.IsNullOrWhiteSpace(parameters.StudentName))
             {
@@ -59,11 +57,12 @@ namespace ChuXin.EMIS.WebAPI.Services
                 queryExpression = queryExpression.Where(x => EF.Functions.Like(x.StudentName, $"%{parameters.StudentName}%"));
             }
 
-            if (!string.IsNullOrWhiteSpace(parameters.StudentStatus.ToString()))
+            if (Enum.IsDefined(typeof(StudentStatusEnum), parameters.StudentStatus))
             {
                 queryExpression = queryExpression.Where(x => x.StudentStatus == parameters.StudentStatus);
             }
 
+            queryExpression = queryExpression.Where(x => x.LineFlag == LineFlagEnum.正常数据);
             queryExpression.OrderBy(x => x.Id);
 
             return await PagedList<Student>.CreateAsync(queryExpression, parameters.PageNumber, parameters.PageSize);
@@ -81,7 +80,7 @@ namespace ChuXin.EMIS.WebAPI.Services
 
         public async Task<bool> ExistAsync(int studentId)
         {
-            return await _efContext.Students.AnyAsync(x => x.Id == studentId);
+            return await _efContext.Students.AnyAsync(x => x.Id == studentId && x.LineFlag == LineFlagEnum.正常数据);
         }
 
         public async Task<bool> SaveAsync()

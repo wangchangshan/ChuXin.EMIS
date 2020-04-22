@@ -4,12 +4,54 @@
         <name>ChuXin.EMIS.WebAPI</name>
     </assembly>
     <members>
+        <member name="T:ChuXin.EMIS.WebAPI.Controllers.V1.StudentPotentialController">
+            <summary>
+            试听学员
+            </summary>
+        </member>
+        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentPotentialController.GetStudentsAsync(ChuXin.EMIS.WebAPI.ModelsParameters.StudentPotentialListDtoParams)">
+            <summary>
+            获取潜在学员列表 也可用于导出学员列表
+            </summary>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentPotentialController.CreateStudentPotentialAsync(ChuXin.EMIS.WebAPI.Models.StudentPotentialAddDto)">
+            <summary>
+            添加试听（潜在）学员
+            </summary>
+            <param name="stuPotentialAddDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentPotentialController.UpdateStudentPotential(System.Int32,ChuXin.EMIS.WebAPI.Models.StudentPotentialUpdateDto)">
+            <summary>
+            整体更新试听（潜在）学员基本信息
+            </summary>
+            <param name="Id"></param>
+            <param name="stuUpdateDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentPotentialController.PartiallyUpdateStudentPotential(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{ChuXin.EMIS.WebAPI.Models.StudentPotentialUpdateDto})">
+            <summary>
+            局部更新试听（潜在）学员基本信息
+            </summary>
+            <param name="Id"></param>
+            <param name="patchDocument"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentPotentialController.DeleteStudentPotential(System.Int32)">
+            <summary>
+            删除试听（潜在）正式学员
+            </summary>
+            <param name="Id"></param>
+            <returns></returns>
+        </member>
         <member name="T:ChuXin.EMIS.WebAPI.Controllers.V1.StudentsController">
             <summary>
             正式学员
             </summary>
         </member>
-        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentsController.GetStudentsAsync(ChuXin.EMIS.WebAPI.DtoParameters.StudentListDtoParams)">
+        <member name="M:ChuXin.EMIS.WebAPI.Controllers.V1.StudentsController.GetStudentsAsync(ChuXin.EMIS.WebAPI.ModelsParameters.StudentListDtoParams)">
             <summary>
             获取正式学员列表 也可用于导出学员列表
             </summary>

@@ -1,8 +1,7 @@
-﻿using System.Data;
-using System.Threading.Tasks;
-using ChuXin.EMIS.WebAPI.DtoParameters;
+﻿using System.Threading.Tasks;
 using ChuXin.EMIS.WebAPI.Entities;
 using ChuXin.EMIS.WebAPI.Helpers;
+using ChuXin.EMIS.WebAPI.ModelsParameters;
 
 namespace ChuXin.EMIS.WebAPI.IServices
 {
