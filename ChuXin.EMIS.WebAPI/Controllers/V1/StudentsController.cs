@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using ChuXin.EMIS.WebAPI.Entities;
+using ChuXin.EMIS.WebAPI.Enums;
 using ChuXin.EMIS.WebAPI.Helpers;
 using ChuXin.EMIS.WebAPI.IServices;
 using ChuXin.EMIS.WebAPI.Models;
@@ -39,7 +40,8 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
             parameters.PageSize = 15;
             var studentList = await _studentRepository.GetStudentListAsync(parameters);
             var studentListDto = _mapper.Map<IEnumerable<StudentListDto>>(studentList);
-            return Ok(studentListDto);
+
+            return ResponseObj.Success(ResponseCodeEnum.Success, studentListDto);
         }
 
         /// <summary>
@@ -59,11 +61,11 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
             bool flag = await _studentRepository.SaveAsync();
             if (flag)
             {
-                return Ok();
+                return ResponseObj.Success(ResponseCodeEnum.Success, student.Id);
             }
             else
             {
-                return BadRequest();
+                return ResponseObj.Failed(ResponseCodeEnum.Failed, "添加正式学员失败！");
             }
         }
 
@@ -156,7 +158,14 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
             var studentEntity = await _studentRepository.GetStudentAsnyc(Id);
             if (studentEntity == null)
             {
-                return NotFound();
+                //return NotFound();
+                //return new JsonResult(new {
+                //    ResponseCode = ResponseCodeEnum.NotFound,
+                //    Result = "",
+                //    Message = $"没法发现Id为：{Id} 的学员！"
+                //});
+
+                return ResponseObj.Failed(ResponseCodeEnum.NotFound, $"没法发现Id为：{Id} 的学员！");
             }
 
             _studentRepository.DeleteStudent(studentEntity);

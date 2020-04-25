@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ChuXin.EMIS.WebAPI.Entities;
+using ChuXin.EMIS.WebAPI.Enums;
 using ChuXin.EMIS.WebAPI.Helpers;
 using ChuXin.EMIS.WebAPI.IServices;
 using ChuXin.EMIS.WebAPI.Models;
@@ -40,7 +41,12 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
 			parameters.PageSize = 15;
 			var stuPotentialList = await _studentPotentialRepository.GetStuPotentialListAsync(parameters);
 			var stuPotentialListDto = _mapper.Map<IEnumerable<StudentPotentialListDto>>(stuPotentialList);
-			return Ok(stuPotentialListDto);
+
+			return new JsonResult(new {
+                ResponseCode = ResponseCodeEnum.Success,
+                Result = stuPotentialListDto,
+                Message = ""
+            });
 		}
 
 		/// <summary>
