@@ -1,7 +1,7 @@
 ﻿using System;
 namespace ChuXin.EMIS.WebAPI.Enums
 {
-    public enum ResponseCodeEnum
+    public enum RtnCodeEnum
     {
         Success = 2000,
 
@@ -13,6 +13,8 @@ namespace ChuXin.EMIS.WebAPI.Enums
 
         NotFound = 4040,
 
-        Failed = 5000
+        Failed = 5000,
+
+        ModelInvalid = 5100
     }
 }

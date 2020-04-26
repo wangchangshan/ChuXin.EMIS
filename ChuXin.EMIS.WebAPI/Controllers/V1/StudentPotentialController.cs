@@ -42,11 +42,7 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
 			var stuPotentialList = await _studentPotentialRepository.GetStuPotentialListAsync(parameters);
 			var stuPotentialListDto = _mapper.Map<IEnumerable<StudentPotentialListDto>>(stuPotentialList);
 
-			return new JsonResult(new {
-                ResponseCode = ResponseCodeEnum.Success,
-                Result = stuPotentialListDto,
-                Message = ""
-            });
+			return RtnHelper.Success(RtnCodeEnum.Success, stuPotentialListDto);
 		}
 
 		/// <summary>
@@ -67,11 +63,11 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
 			bool flag = await _studentPotentialRepository.SaveAsync();
 			if (flag)
 			{
-				return Ok();
+				return RtnHelper.Success(RtnCodeEnum.Success, stuPotential.Id);
 			}
 			else
 			{
-				return BadRequest();
+				return RtnHelper.Failed(RtnCodeEnum.Failed, "添加失败");
 			}
 		}
 
@@ -96,6 +92,7 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
 
 				_studentPotentialRepository.AddStuPotential(newStuPotential);
 				await _studentPotentialRepository.SaveAsync();
+				Id = newStuPotential.Id;
 			}
 			else
 			{
@@ -104,7 +101,7 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
 
 				await _studentPotentialRepository.SaveAsync();
 			}
-			return Ok();
+			return RtnHelper.Success(RtnCodeEnum.Success, Id);
 		}
 
 		/// <summary>
@@ -125,7 +122,7 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
 
 				if (!TryValidateModel(stuPotentialUpdateDto))
 				{
-					return ValidationProblem(ModelState);
+					return RtnHelper.Failed(RtnCodeEnum.ModelInvalid, ValidationProblem(ModelState), "模型验证错误");
 				}
 
 				var newStuPotential = _mapper.Map<StudentPotential>(stuPotentialUpdateDto);
@@ -136,7 +133,7 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
 				_studentPotentialRepository.AddStuPotential(newStuPotential);
 				await _studentPotentialRepository.SaveAsync();
 
-				return Ok();
+				return RtnHelper.Success(RtnCodeEnum.Success, newStuPotential.Id);
 			}
 
 			var dtoToPatch = _mapper.Map<StudentPotentialUpdateDto>(stuPotentialEntity);
@@ -152,7 +149,7 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
 
 			await _studentPotentialRepository.SaveAsync();
 
-			return Ok();
+			return RtnHelper.Success(RtnCodeEnum.Success, Id);
 		}
 
 		/// <summary>
@@ -173,7 +170,7 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
 
 			await _studentPotentialRepository.SaveAsync();
 
-			return Ok();
+			return RtnHelper.Success();
 		}
 	}
 }

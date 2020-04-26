@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using ChuXin.EMIS.WebAPI.Entities;
@@ -41,7 +40,7 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
             var studentList = await _studentRepository.GetStudentListAsync(parameters);
             var studentListDto = _mapper.Map<IEnumerable<StudentListDto>>(studentList);
 
-            return ResponseObj.Success(ResponseCodeEnum.Success, studentListDto);
+            return RtnHelper.Success(RtnCodeEnum.Success, studentListDto);
         }
 
         /// <summary>
@@ -61,11 +60,11 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
             bool flag = await _studentRepository.SaveAsync();
             if (flag)
             {
-                return ResponseObj.Success(ResponseCodeEnum.Success, student.Id);
+                return RtnHelper.Success(RtnCodeEnum.Success, student.Id);
             }
             else
             {
-                return ResponseObj.Failed(ResponseCodeEnum.Failed, "添加正式学员失败！");
+                return RtnHelper.Failed(RtnCodeEnum.Failed, "添加正式学员失败！");
             }
         }
 
@@ -89,15 +88,16 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
 
                 _studentRepository.AddStudent(newStudent);
                 await _studentRepository.SaveAsync();
+                Id = newStudent.Id;
             }
             else
             {
                 _mapper.Map(studentUpdateDto, studentEntity);
                 _studentRepository.UpdateStudent(studentEntity);
-
                 await _studentRepository.SaveAsync();
             }
-            return Ok();
+
+            return RtnHelper.Success(RtnCodeEnum.Success, Id);
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
 
                 if (!TryValidateModel(studentUpdateDto))
                 {
-                    return ValidationProblem(ModelState);
+                    return RtnHelper.Failed(RtnCodeEnum.ModelInvalid, ValidationProblem(ModelState), "模型验证错误");
                 }
 
                 var newStudent = _mapper.Map<Student>(studentUpdateDto);
@@ -128,7 +128,7 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
                 _studentRepository.AddStudent(newStudent);
                 await _studentRepository.SaveAsync();
 
-                return Ok();
+                return RtnHelper.Success(RtnCodeEnum.Success, newStudent.Id);
             }
 
             var dtoToPatch = _mapper.Map<StudentUpdateDto>(studentEntity);
@@ -144,7 +144,7 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
 
             await _studentRepository.SaveAsync();
 
-            return Ok();
+            return RtnHelper.Success(RtnCodeEnum.Success, Id);
         }
 
         /// <summary>
@@ -158,21 +158,14 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
             var studentEntity = await _studentRepository.GetStudentAsnyc(Id);
             if (studentEntity == null)
             {
-                //return NotFound();
-                //return new JsonResult(new {
-                //    ResponseCode = ResponseCodeEnum.NotFound,
-                //    Result = "",
-                //    Message = $"没法发现Id为：{Id} 的学员！"
-                //});
-
-                return ResponseObj.Failed(ResponseCodeEnum.NotFound, $"没法发现Id为：{Id} 的学员！");
+                return RtnHelper.Failed(RtnCodeEnum.NotFound, $"没法发现Id为：{Id} 的学员！");
             }
 
             _studentRepository.DeleteStudent(studentEntity);
 
             await _studentRepository.SaveAsync();
 
-            return Ok();
+            return RtnHelper.Success();
         }
     }
 }

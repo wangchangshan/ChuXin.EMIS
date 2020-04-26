@@ -7,7 +7,7 @@ namespace ChuXin.EMIS.WebAPI.Filters
     {
         public override void OnActionExecuted(ActionExecutedContext context)
         {
-            //根据实际需求进行具体实现
+            //根据实际需求进行具体实现（暂时不使用，如需使用需要在StartUp.cs中注册）
             if (context.Result is ObjectResult)
             {
                 var objectResult = context.Result as ObjectResult;
