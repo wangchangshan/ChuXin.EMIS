@@ -46,6 +46,24 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
 		}
 
 		/// <summary>
+		/// 获取潜在学员详细信息
+		/// </summary>
+		/// <param name="Id"></param>
+		/// <returns></returns>
+		[HttpGet("{Id}")]
+		public async Task<IActionResult> GetStudentDetail(int Id)
+		{
+			var stuPotential = await _studentPotentialRepository.GetStuPotentialAsnyc(Id);
+			if (stuPotential == null)
+			{
+				return RtnHelper.Failed(RtnCodeEnum.NotFound, $"没有发现Id为： {Id} 的学员");
+			}
+			var stuPotentialDto = _mapper.Map<StudentPotentialDto>(stuPotential);
+
+			return RtnHelper.Success(RtnCodeEnum.Success, stuPotentialDto);
+		}
+
+		/// <summary>
 		/// 添加试听（潜在）学员
 		/// </summary>
 		/// <param name="stuPotentialAddDto"></param>

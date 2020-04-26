@@ -9,8 +9,14 @@ namespace ChuXin.EMIS.WebAPI.AutoMapperProfiles
 	{
 		public StudentProfile()
 		{
+			string host = AppSettingHelper.GetSetting("AccessUrl");
+			CreateMap<Student, StudentDto>()
+			.ForMember(dest => dest.StudentAvatarPath, opt => opt.MapFrom(s => $"{host}api/upload/getimage?id={s.Id}&type=avatar-s"))
+			.ForMember(dest => dest.StudentGenderDisplay, opt => opt.MapFrom(s => s.StudentGender.ToString()))
+			.ForMember(dest => dest.StudentStatusDisplay, opt => opt.MapFrom(s => s.StudentStatus.ToString()));
+
 			CreateMap<Student, StudentListDto>()
-			.ForMember(dest => dest.StudentAvatarPath, opt => opt.MapFrom(s => $"{AppSettingHelper.GetSetting("AccessUrl")}api/upload/getimage?id={s.Id}&type=avatar-s"))
+			.ForMember(dest => dest.StudentAvatarPath, opt => opt.MapFrom(s => $"{host}api/upload/getimage?id={s.Id}&type=avatar-s"))
 			.ForMember(dest => dest.StudentGenderDisplay, opt => opt.MapFrom(s => s.StudentGender.ToString()))
 			.ForMember(dest => dest.StudentStatusDisplay, opt => opt.MapFrom(s => s.StudentStatus.ToString()));
 

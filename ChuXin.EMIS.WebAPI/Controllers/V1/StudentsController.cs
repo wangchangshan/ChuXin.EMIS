@@ -44,6 +44,24 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
         }
 
         /// <summary>
+        /// 获取正式学员详细信息
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetStudentDetail(int Id)
+        {
+            var student = await _studentRepository.GetStudentAsnyc(Id);
+            if (student == null)
+            {
+                return RtnHelper.Failed(RtnCodeEnum.NotFound, $"没有发现Id为： {Id} 的学员");
+            }
+            var studentDto = _mapper.Map<StudentDto>(student);
+
+            return RtnHelper.Success(RtnCodeEnum.Success, studentDto);
+        }
+
+        /// <summary>
         /// 添加正式学员
         /// </summary>
         /// <param name="studentAddDto"></param>
