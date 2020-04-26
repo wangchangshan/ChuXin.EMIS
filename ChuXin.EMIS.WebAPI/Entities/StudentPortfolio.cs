@@ -62,6 +62,12 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("course_id")]
 		public Guid CourseId { get; set; }
 
+		/// <summary>
+		/// 图片评分，可用于图片置顶功能（默认值为0）
+		/// </summary>
+		[Column("rate_level")]
+		public int RateLevel { get; set; }
+
 		[Column("doc_status")]
 		[Required]
 		public DocStatusEnum DocStatus { get; set; }
