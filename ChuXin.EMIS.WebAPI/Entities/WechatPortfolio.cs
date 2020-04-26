@@ -49,6 +49,12 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("author_sex")]
 		public GenderEnum StudentSex { get; set; }
 
+		/// <summary>
+		/// 图片排序，可用于图片置顶功能（默认值为1，置顶的图片设为0）
+		/// </summary>
+		[Column("sort_weight")]
+		public int SortWeight { get; set; }
+
 		[Column("create_by")]
 		[MaxLength(20)]
 		public string CreateBy { get; set; }
