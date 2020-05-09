@@ -1,7 +1,10 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChuXin.EMIS.WebAPI", "ChuXin.EMIS.WebAPI\ChuXin.EMIS.WebAPI.csproj", "{4FD60A62-BB41-49EE-8666-13A5811A43DA}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChuXin.EMIS.WebAPI", "ChuXin.EMIS.WebAPI\ChuXin.EMIS.WebAPI.csproj", "{4FD60A62-BB41-49EE-8666-13A5811A43DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChuXin.EMIS.IDP", "ChuXin.EMIS.IDP\ChuXin.EMIS.IDP.csproj", "{E1C70A2F-0F87-441D-B3D9-1E1DDB3D31EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,5 +16,15 @@ Global
 		{4FD60A62-BB41-49EE-8666-13A5811A43DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FD60A62-BB41-49EE-8666-13A5811A43DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FD60A62-BB41-49EE-8666-13A5811A43DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1C70A2F-0F87-441D-B3D9-1E1DDB3D31EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1C70A2F-0F87-441D-B3D9-1E1DDB3D31EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1C70A2F-0F87-441D-B3D9-1E1DDB3D31EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1C70A2F-0F87-441D-B3D9-1E1DDB3D31EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6CC0A365-2744-4F6B-BD94-4CE584A2B379}
 	EndGlobalSection
 EndGlobal
