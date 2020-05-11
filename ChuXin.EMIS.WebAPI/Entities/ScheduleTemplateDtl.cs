@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ChuXin.EMIS.WebAPI.Enums;
 
@@ -14,10 +15,9 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("id")]
 		public int Id { get; set; }
 
-		[Column("sch_template_code")]
+		[Column("sch_template_id")]
 		[Required]
-		[MaxLength(10)]
-		public string SchTemplateCode { get; set; }
+		public Guid SchTemplateId { get; set; }
 
 		[Column("course_period")]
 		[Required]

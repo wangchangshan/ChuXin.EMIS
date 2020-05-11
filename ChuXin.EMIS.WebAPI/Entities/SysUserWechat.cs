@@ -56,6 +56,10 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("last_request_time")]
 		public DateTime? LastRequestTime { get; set; }
 
+		[Column("org_id")]
+		[Required]
+		public Guid OrgId { get; set; }
+
 		[Column("create_by")]
 		[MaxLength(20)]
 		public string CreateBy { get; set; }

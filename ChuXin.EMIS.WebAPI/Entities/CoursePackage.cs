@@ -46,6 +46,10 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("package_enabled")]
 		public EnabledEnum PackageEnabled { get; set; }
 
+		[Column("org_id")]
+		[Required]
+		public Guid OrgId { get; set; }
+
 		[Column("create_by")]
 		[MaxLength(20)]
 		public string CreateBy { get; set; }

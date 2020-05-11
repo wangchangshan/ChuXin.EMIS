@@ -35,6 +35,10 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[MaxLength(20)]
 		public string NewStudentName { get; set; }
 
+		[Column("org_id")]
+		[Required]
+		public Guid OrgId { get; set; }
+
 		[Column("create_by")]
 		[MaxLength(20)]
 		public string CreateBy { get; set; }

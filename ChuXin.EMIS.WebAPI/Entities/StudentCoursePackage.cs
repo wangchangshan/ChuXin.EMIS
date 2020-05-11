@@ -106,6 +106,10 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("stu_course_package_status")]
 		public StuCoursePackageStatusEnum StuCoursePackageStatus { get; set; }
 
+		[Column("org_id")]
+		[Required]
+		public Guid OrgId { get; set; }
+
 		[Column("create_by")]
 		[MaxLength(20)]
 		public string CreateBy { get; set; }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChuXin.EMIS.WebAPI.Entities
@@ -35,5 +36,9 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("current_num")]
 		[Required]
 		public int CurrentNum { get; set; }
+
+		[Column("org_id")]
+		[Required]
+		public Guid OrgId { get; set; }
 	}
 }

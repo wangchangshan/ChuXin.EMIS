@@ -63,6 +63,10 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("student_status")]
 		public StudentStatusEnum StudentStatus { get; set; }
 
+		[Column("org_id")]
+		[Required]
+		public Guid OrgId { get; set; }
+
 		[Column("create_by")]
 		[MaxLength(20)]
 		public string CreateBy { get; set; }

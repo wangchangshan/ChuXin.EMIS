@@ -1,4 +1,5 @@
 ﻿using ChuXin.EMIS.WebAPI.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -27,5 +28,9 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("role_level")]
 		[Required]
 		public RoleLevelEnum RoleLevel { get; set; }
+
+		[Column("org_id")]
+		[Required]
+		public Guid OrgId { get; set; }
 	}
 }

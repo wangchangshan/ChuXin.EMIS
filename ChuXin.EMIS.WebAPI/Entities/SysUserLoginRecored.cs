@@ -26,5 +26,9 @@ namespace ChuXin.EMIS.WebAPI.Entities
 
 		[Column("login_time")]
 		public DateTime LoginTime { get; set; }
+
+		[Column("org_id")]
+		[Required]
+		public Guid OrgId { get; set; }
 	}
 }

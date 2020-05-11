@@ -55,6 +55,10 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("rate_level")]
 		public int RateLevel { get; set; }
 
+		[Column("org_id")]
+		[Required]
+		public Guid OrgId { get; set; }
+
 		[Column("create_by")]
 		[MaxLength(20)]
 		public string CreateBy { get; set; }

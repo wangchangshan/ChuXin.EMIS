@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices;
 using ChuXin.EMIS.WebAPI.Enums;
 
 namespace ChuXin.EMIS.WebAPI.Entities
@@ -12,13 +13,8 @@ namespace ChuXin.EMIS.WebAPI.Entities
 	public class ScheduleTemplate
 	{
 		[Key]
-		[Column("id")]
-		public int Id { get; set; }
-
-		[Column("sch_template_code")]
-		[Required]
-		[MaxLength(10)]
-		public string SchTemplateCode { get; set; }
+		[Column("sch_template_id")]
+		public Guid SchTemplateId { get; set; }
 
 		[Column("sch_template_name")]
 		[Required]
@@ -28,6 +24,10 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("sch_template_enabled")]
 		[Required]
 		public EnabledEnum SchTemplateEnabled { get; set; }
+
+		[Column("org_id")]
+		[Required]
+		public Guid OrgId { get; set; }
 
 		[Column("create_by")]
 		[MaxLength(20)]

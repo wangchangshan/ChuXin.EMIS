@@ -19,10 +19,9 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Required]
 		public Guid StuCoursePackageId { get; set; }
 
-		[Column("sch_template_code")]
+		[Column("sch_template_id")]
 		[Required]
-		[MaxLength(10)]
-		public string SchTemplateCode { get; set; }
+		public Guid SchTemplateId { get; set; }
 
 		[Column("classroom")]
 		[Required]
@@ -64,6 +63,10 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("course_type")]
 		[Required]
 		public CourseTypeEnum CourseType { get; set; }
+
+		[Column("org_id")]
+		[Required]
+		public Guid OrgId { get; set; }
 
 		[Column("create_by")]
 		[MaxLength(20)]

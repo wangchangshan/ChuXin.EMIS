@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChuXin.EMIS.WebAPI.Entities
@@ -21,5 +22,9 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Required]
 		[MaxLength(10)]
 		public string RoleId { set; get; }
+
+		[Column("org_id")]
+		[Required]
+		public Guid OrgId { get; set; }
 	}
 }
