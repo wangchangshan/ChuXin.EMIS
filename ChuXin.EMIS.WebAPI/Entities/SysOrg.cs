@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChuXin.EMIS.WebAPI.Entities
 {
+	/// <summary>
+	/// 组织机构表
+	/// </summary>
 	[Table("sys_org")]
 	public class SysOrg
 	{
@@ -16,10 +19,6 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[MaxLength(80)]
 		[Required]
 		public string OrgName { get; set; }
-
-		[Column("org_address")]
-		[MaxLength(100)]
-		public string OrgAddress { get; set; }
 
 		[Column("juridical_person")]
 		[MaxLength(20)]
@@ -37,6 +36,10 @@ namespace ChuXin.EMIS.WebAPI.Entities
 		[Column("prefix_code")]
 		[MaxLength(6)]
 		public string PrefixCode { get; set; }
+
+		[Column("org_address")]
+		[MaxLength(100)]
+		public string OrgAddress { get; set; }
 
 		[Column("org_active_time")]
 		public DateTime OrgActiveTime { get; set; }
