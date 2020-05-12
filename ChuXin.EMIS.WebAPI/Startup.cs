@@ -4,6 +4,7 @@ using ChuXin.EMIS.WebAPI.Helpers;
 using ChuXin.EMIS.WebAPI.IServices;
 using ChuXin.EMIS.WebAPI.Services;
 using ChuXin.EMIS.WebAPI.SettingModel;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -80,6 +82,20 @@ namespace ChuXin.EMIS.WebAPI
 			services.AddScoped<IStudentRepository, StudentRepository>();
 			services.AddScoped<IStudentPotentialRepository, StudentPotentialRepository>();
 
+			// 身份认证
+			//services.AddAuthorization();
+			//默认的认证方式是Bearer认证
+			services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+				//配置要验证的信息
+				.AddIdentityServerAuthentication(options =>
+				{
+					//第一次会去认证服务器获取配置信息
+					options.Authority = "http://localhost:5000";
+					options.ApiName = "api1";
+					options.ApiSecret = "secret";
+					options.RequireHttpsMetadata = false;
+				});
+
 			services.AddControllers()
 			.AddNewtonsoftJson(setup =>
 			{
@@ -112,7 +128,7 @@ namespace ChuXin.EMIS.WebAPI
 
 			app.UseRouting();
 
-			//app.UseAuthorization();
+			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
 			{

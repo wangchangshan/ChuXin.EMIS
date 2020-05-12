@@ -51,7 +51,7 @@ namespace ChuXin.EMIS.WebAPI
                 .ConfigureLogging(logging => {
                     logging.ClearProviders();
                     // 设置日志最低等级  Trace -> Debug -> Info -> Warning -> Error -> Fatal
-                    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Information);
+                    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
                 })
                 .UseNLog(); // 注入
     }

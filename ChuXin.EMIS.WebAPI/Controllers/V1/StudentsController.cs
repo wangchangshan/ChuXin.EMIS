@@ -7,6 +7,7 @@ using ChuXin.EMIS.WebAPI.Helpers;
 using ChuXin.EMIS.WebAPI.IServices;
 using ChuXin.EMIS.WebAPI.Models;
 using ChuXin.EMIS.WebAPI.ModelsParameters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
     /// </summary>
     [ApiVersion("1.0")]
     [ApiController]
+    [Authorize]
     [Route("api/v{version:ApiVersion}/students")]
     public class StudentsController : ControllerBase
     {

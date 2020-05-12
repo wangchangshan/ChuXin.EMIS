@@ -9,15 +9,6 @@
     }
   },
   "profiles": {
-    "Custom": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "http://localhost:5002"
-    },
     "ChuXin.EMIS.WebAPI": {
       "commandName": "Project",
       "launchBrowser": true,
@@ -25,7 +16,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:5001;http://localhost:5000"
+      "applicationUrl": "http://localhost:5001"
     }
   }
 }
