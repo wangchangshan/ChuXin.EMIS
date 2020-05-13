@@ -128,7 +128,11 @@ namespace ChuXin.EMIS.WebAPI
 
 			app.UseRouting();
 
-			app.UseAuthorization();
+			// 身份验证中间件，对主机的每次调用都将自动执行身份验证
+			app.UseAuthentication();
+
+			// 授权中间件，确保匿名用户无法访问我们的API端点
+			//app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
 			{

@@ -1,9 +1,9 @@
-﻿using ChuXin.EMIS.WebAPI.Enums;
+﻿using ChuXin.EMIS.IDP.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ChuXin.EMIS.WebAPI.Entities
+namespace ChuXin.EMIS.IDP.Entities
 {
 	/// <summary>
 	/// 系统用户表（添加教师即写入当前表）
@@ -27,7 +27,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 
 		[Column("enabled_login")]
 		[Required]
-		public EnabledEnum EnabledLogin{ get; set; }
+		public EnabledEnum EnabledLogin { get; set; }
 
 		[Column("nick_name")]
 		[MaxLength(20)]
@@ -35,7 +35,7 @@ namespace ChuXin.EMIS.WebAPI.Entities
 
 		[Column("is_teacher")]
 		[Required]
-		public bool IsTeacher{ get; set; }
+		public bool IsTeacher { get; set; }
 
 		[Column("teacher_code")]
 		[MaxLength(20)]
