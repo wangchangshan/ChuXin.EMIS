@@ -18,7 +18,7 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
     /// </summary>
     [ApiVersion("1.0")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     [Route("api/v{version:ApiVersion}/students")]
     public class StudentsController : ControllerBase
     {

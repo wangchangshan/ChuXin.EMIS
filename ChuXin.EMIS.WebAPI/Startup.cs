@@ -32,11 +32,25 @@ namespace ChuXin.EMIS.WebAPI
 		private IApiVersionDescriptionProvider _apiVersionProvider;
 
 
+		readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 		public void ConfigureServices(IServiceCollection services)
 		{
 			// 注册配置选项的服务,  构造器或中间件就可以通过注入的方式获取配置。
 			services.Configure<AppSetting>(Configuration);
 			AppSettingHelper.InitSetting(Configuration.GetSection("EMISSetting"));
+
+			// 允许跨域
+			services.AddCors(options =>
+			{
+				options.AddPolicy(name: MyAllowSpecificOrigins, builder=>
+				{
+					// 配置前端测试站点可以跨域请求api
+					builder.WithOrigins("http://localhost:3000")
+						.AllowAnyMethod()
+						.AllowAnyHeader()
+						.AllowCredentials();
+				});
+			});
 
 			// API 版本控制
 			services.AddApiVersioning(options =>
@@ -124,7 +138,7 @@ namespace ChuXin.EMIS.WebAPI
 
 			//app.UseHttpsRedirection();
 
-			app.UseCors();
+			app.UseCors(MyAllowSpecificOrigins);
 
 			app.UseRouting();
 
