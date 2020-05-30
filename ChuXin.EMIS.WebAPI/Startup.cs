@@ -48,7 +48,8 @@ namespace ChuXin.EMIS.WebAPI
 					builder.WithOrigins("http://localhost:3000")
 						.AllowAnyMethod()
 						.AllowAnyHeader()
-						.AllowCredentials();
+						.AllowCredentials()
+					    .WithExposedHeaders(new string[] { "X-Pagination" });
 				});
 			});
 

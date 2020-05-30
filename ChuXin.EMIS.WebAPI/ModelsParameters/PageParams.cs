@@ -2,7 +2,7 @@
 {
 	public abstract class PageParams
 	{
-		private int _pageSize = 15;
+		private int _pageSize = 10;
 		private const int MaxPageSize = 100;
 		public int PageSize
 		{

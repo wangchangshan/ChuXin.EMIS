@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
 using ChuXin.EMIS.WebAPI.Entities;
@@ -38,8 +40,21 @@ namespace ChuXin.EMIS.WebAPI.Controllers.V1
         [HttpGet]
         public async Task<IActionResult> GetStudentsAsync([FromQuery] StudentListDtoParams parameters)
         {
-            parameters.PageSize = 15;
             var studentList = await _studentRepository.GetStudentListAsync(parameters);
+            var paginationMetadata = new
+            {
+                totalCount = studentList.TotalCount,
+                pageSize = studentList.PageSize,
+                currentPage = studentList.CurrentPage,
+                totalPages = studentList.TotalPages
+            };
+
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata,
+                new JsonSerializerOptions
+                {
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+                }));
+
             var studentListDto = _mapper.Map<IEnumerable<StudentListDto>>(studentList);
 
             return RtnHelper.Success(RtnCodeEnum.Success, studentListDto);
