@@ -81,14 +81,22 @@ namespace ChuXin.EMIS.IDP
 				// implicit
 				new Client()
 				{
-					ClientId = "spa",
-					ClientName = "初心学员管理平台",
+					ClientId = "react-spa-client",
+					ClientName = "CHUXIN EMIS SYSTEM",
+					ClientUri = "http://localhost:3000",
+
 					AllowedGrantTypes = GrantTypes.Implicit,
 					AllowAccessTokensViaBrowser = true,
+					RequireConsent = false,
+					AccessTokenLifetime = 60 * 5,
 
-					RedirectUris = { "http://localhost:5003/callback.html" },
-					PostLogoutRedirectUris = { "http://localhost:5003/index.html" },
-					AllowedCorsOrigins = { "http://localhost:5003" },
+					RedirectUris = 
+					{
+						"http://localhost:3000/loading",
+						"http://localhost:3000/silent-renew",
+					},
+					PostLogoutRedirectUris = { "http://localhost:3000/login" },
+					AllowedCorsOrigins = { "http://localhost:3000" },
 
 					AllowedScopes =
 					{
