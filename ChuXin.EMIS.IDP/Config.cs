@@ -9,43 +9,33 @@ namespace ChuXin.EMIS.IDP
 {
 	public static class Config
 	{
-		//http://localhost:5000/.well-known/openid-configuration
-
 		public static IEnumerable<IdentityResource> GetIdentityResources()
 		{
 			return new IdentityResource[]
 			{
 				new IdentityResources.OpenId(),
 				new IdentityResources.Profile(),
-				new IdentityResources.Address(),
-				new IdentityResources.Phone(),
 				new IdentityResources.Email()
 			};
 		}
 
-		public static List<TestUser> GetUsers()
+		internal static List<TestUser> GetUsers()
 		{
 			return new List<TestUser>
 			{
-				new TestUser
-				{
-					SubjectId = "1",
-					Username = "alice",
-					Password = "password",
-
-				  Claims = new List<Claim>(){new Claim(JwtClaimTypes.Role,"superadmin") }
-				},
-				new TestUser
-				{
-					SubjectId = "2",
-					Username = "bob",
-					Password = "password",
-
-					Claims = new List<Claim>
+				new TestUser { SubjectId = "1", Username = "alice", Password = "alice",
+					Claims =
 					{
-						new Claim("name", "Bob"),
-						new Claim("website", "https://bob.com")
-					},
+						new Claim(JwtClaimTypes.Name, "Alice Smith"),
+						new Claim(JwtClaimTypes.Email, "AliceSmith@email.com")
+					}
+				},
+				new TestUser { SubjectId = "11", Username = "bob", Password = "bob",
+					Claims =
+					{
+						new Claim(JwtClaimTypes.Name, "Bob Smith"),
+						new Claim(JwtClaimTypes.Email, "BobSmith@email.com")
+					}
 				}
 			};
 		}

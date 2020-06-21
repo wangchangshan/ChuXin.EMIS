@@ -21,44 +21,58 @@ namespace ChuXin.EMIS.IDP
 			Configuration = configuration;
 		}
 
-		public void ConfigureServices(IServiceCollection services)
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        public void ConfigureServices(IServiceCollection services)
 		{
 			string conn = Configuration["ConnectionString:DefaultConnectionString"];
 			services.AddDbContext<EFDbContext>(options => options.UseMySql(conn));
 
-			services.AddScoped<IUserRepository, UserRepository>();
+            // 允许跨域
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins, builder =>
+                {
+                    // 配置前端测试站点可以跨域请求api
+                    builder.WithOrigins("http://localhost:3000")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                });
+            });
 
-			//var builder = services.AddIdentityServer();
-			////设置开发者临时签名凭据
-			//builder.AddDeveloperSigningCredential();
-			//builder.AddInMemoryIdentityResources(Config.GetIdentityResources());
-			//builder.AddInMemoryApiResources(Config.GetApis());
-			//builder.AddInMemoryClients(Config.GetClients());
+            services.AddScoped<IUserRepository, UserRepository>();
 
-			var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-			services.AddIdentityServer()
-			   .AddDeveloperSigningCredential()
-			   .AddTestUsers(Config.GetUsers())
-			   // this adds the config data from DB (clients, resources)
-			   .AddConfigurationStore(options =>
-			   {
-				   options.ConfigureDbContext = builder =>
-					   builder.UseMySql(conn,
-						   sql => sql.MigrationsAssembly(migrationsAssembly));
-			   })
-			   // this adds the operational data from DB (codes, tokens, consents)
-			   .AddOperationalStore(options =>
-			   {
-				   options.ConfigureDbContext = builder =>
-					   builder.UseMySql(conn,
-						   sql => sql.MigrationsAssembly(migrationsAssembly));
+            var builder = services.AddIdentityServer();
+            //设置开发者临时签名凭据
+            builder.AddDeveloperSigningCredential();
+            builder.AddInMemoryIdentityResources(Config.GetIdentityResources());
+            builder.AddInMemoryApiResources(Config.GetApis());
+            builder.AddInMemoryClients(Config.GetClients());
 
-					// this enables automatic token cleanup. this is optional.
-					options.EnableTokenCleanup = false;//是否从数据库清楚令牌数据，默认为false
-					options.TokenCleanupInterval = 300;//令牌过期时间，默认为3600秒，一个小时
-				});
+            //var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+            //services.AddIdentityServer()
+            //   .AddDeveloperSigningCredential()
+            //   .AddTestUsers(Config.GetUsers())
+            //   // this adds the config data from DB (clients, resources)
+            //   .AddConfigurationStore(options =>
+            //   {
+            //	   options.ConfigureDbContext = builder =>
+            //		   builder.UseMySql(conn,
+            //			   sql => sql.MigrationsAssembly(migrationsAssembly));
+            //   })
+            //   // this adds the operational data from DB (codes, tokens, consents)
+            //   .AddOperationalStore(options =>
+            //   {
+            //	   options.ConfigureDbContext = builder =>
+            //		   builder.UseMySql(conn,
+            //			   sql => sql.MigrationsAssembly(migrationsAssembly));
 
-			services.AddControllers();
+            //		// this enables automatic token cleanup. this is optional.
+            //		options.EnableTokenCleanup = false;//是否从数据库清楚令牌数据，默认为false
+            //		options.TokenCleanupInterval = 300;//令牌过期时间，默认为3600秒，一个小时
+            //	});
+
+            services.AddControllers();
 		}
 
 
@@ -71,15 +85,13 @@ namespace ChuXin.EMIS.IDP
 
 			app.UseIdentityServer();
 
-			//app.UseRouting();
+            app.UseCors(MyAllowSpecificOrigins);
+            app.UseRouting();
 
-			//app.UseEndpoints(endpoints =>
-			//{
-			//	endpoints.MapGet("/", async context =>
-			//	{
-			//		await context.Response.WriteAsync("Hello World!");
-			//	});
-			//});
-		}
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
 	}
 }
