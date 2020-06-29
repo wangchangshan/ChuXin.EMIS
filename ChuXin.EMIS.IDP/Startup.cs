@@ -72,7 +72,7 @@ namespace ChuXin.EMIS.IDP
             //		options.TokenCleanupInterval = 300;//令牌过期时间，默认为3600秒，一个小时
             //	});
 
-            services.AddControllers();
+            services.AddControllersWithViews();
 		}
 
 
@@ -86,11 +86,15 @@ namespace ChuXin.EMIS.IDP
 			app.UseIdentityServer();
 
             app.UseCors(MyAllowSpecificOrigins);
+
+            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
 	}

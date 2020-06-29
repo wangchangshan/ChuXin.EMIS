@@ -75,24 +75,26 @@ namespace ChuXin.EMIS.IDP
 					ClientName = "CHUXIN EMIS SYSTEM",
 					ClientUri = "http://localhost:3000",
 
-					AllowedGrantTypes = GrantTypes.Implicit,
+					RequireClientSecret = false,
+
+					AllowedGrantTypes = GrantTypes.Code,
 					AllowAccessTokensViaBrowser = true,
 					RequireConsent = false,
 					AccessTokenLifetime = 60 * 5,
 
 					RedirectUris = 
 					{
-						"http://localhost:3000/loading",
-						"http://localhost:3000/silent-renew",
+						"http://localhost:3000/logincallback",
+						"http://localhost:3000/silentrenew",
 					},
-					PostLogoutRedirectUris = { "http://localhost:3000/login" },
+					PostLogoutRedirectUris = { "http://localhost:3000/index" },
+
 					AllowedCorsOrigins = { "http://localhost:3000" },
 
 					AllowedScopes =
 					{
 						IdentityServerConstants.StandardScopes.OpenId,
-						IdentityServerConstants.StandardScopes.Profile,
-						"api1"
+						IdentityServerConstants.StandardScopes.Profile
 					},
 				}
 			};
